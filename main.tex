@@ -1,0 +1,159 @@
+\documentclass[11pt,a4paper]{report}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[english]{babel}
+\usepackage[left=1in, right=1in, top=1in, bottom=1in]{geometry}
+\usepackage{graphicx}
+\usepackage{blindtext, amssymb, graphicx, mathtools, amsmath, listings, float, amsthm, tikz, multicol}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{caption}
+\usepackage{subcaption}
+
+
+
+\newcommand{\N}{\mathcal{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\G}{\mathbb{G}}
+\renewcommand{\L}{\mathcal{L}}
+\renewcommand{\l}{\ell}
+\newcommand{\E}[1]{\mathbb{E}\left[ #1 \right]}
+\newcommand{\var}[1]{\text{Var}\left( #1 \right)}
+\newcommand{\cov}[2]{\text{Cov}\left( #1, #2 \right)}
+\newcommand{\const}{\text{const}}
+
+
+\newcommand{\pdf}[1]{f_{#1}}
+\newcommand{\cdf}[1]{F_{#1}}
+
+\newcommand{\disp}{\displaystyle}
+
+
+\renewcommand{\P}{\mathbb{P}}
+\renewcommand{\leq}{\leqslant}
+\renewcommand{\geq}{\geqslant}
+
+
+\newcommand{\Solution}{\[\textbf{ \ Solution:}\]}
+
+
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\lstset{
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    commentstyle=\color{codegreen},
+    breaklines=true,
+    frame=single
+}
+
+
+\usepackage{titlesec}
+
+% Настройка команды \chapter
+\titleformat{\chapter}[display]
+  {\normalfont\huge\bfseries}{\chaptertitlename\ \thechapter}{20pt}{\Huge}
+  
+% Управление отступами: {левый}{перед}{после}
+\titlespacing*{\chapter}{0pt}{-20pt}{30pt}
+
+
+
+\title{Numerical Simulation of Pollutant Dispersion in a T-shaped Cavity using CFD Methods}
+\author{}
+\date{\today}
+
+
+
+
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+his report presents the numerical investigation of pollutant dispersion within a T-shaped building geometry, inspired by the benchmarks of Kikumoto and Ooka. The study utilizes Computational Fluid Dynamics (CFD) to analyze the transport of ethylene ($C_2H_4$) under transient wind conditions. A pressure-based solver with the PISO algorithm was employed to ensure mass conservation and stable convergence. The simulation accounts for a primary airflow of 1 m/s and a secondary pollutant source at 0.1 m/s. In this work, we visualized how the gas cloud moves and changes its shape inside the building over time. Our results show where the pollution accumulates most, which is important for understanding air quality in real city conditions.
+\end{abstract}
+
+\tableofcontents
+\newpage
+
+
+
+\chapter{Introduction}
+
+\section{Background and Motivation}
+Today, we spend most of our time inside buildings or in crowded cities. Because of this, knowing how dirty air or gas leaks move through a room is a big deal for safety. If a gas leak happens in a building with a complex shape, the air might get "trapped" in certain corners, creating dangerous zones. In this project, we study a T-shaped space between buildings to see how wind carries these pollutants and where they might get stuck.
+
+\section{Problem Statement}
+The core of this research is based on the experimental and numerical benchmarks established by Hideki Kikumoto and Ryozo Ooka. We focus on a T-shaped building model where a primary airflow interacts with a secondary source of pollutant gas. In real-world scenarios, such configurations represent street canyons, industrial hallways, or complex ventilation ducts where stagnant zones can lead to dangerous concentrations of toxic gases.
+
+\section{Sulfur hexafluoride ($SF_6$) as a Pollutant}
+In our simulation, we chose Sulfur hexafluoride as the gas that leaks into the urban area. Sulfur hexafluoride ($SF_6$) is a colorless, odorless, non-toxic, and extremely stable synthetic gas. It is also known as the world's most potent greenhouse gas, with a global warming potential 23 500 times greater than ($CO_2$)
+and an atmospheric lifetime exceeding 1 000 years. Our goal was to see how this gas moves through the building when a steady wind blows. By watching how its concentration changes, we can identify which parts of the area become dangerous first.
+
+\section{Objectives}
+The main objectives of this study are:
+\begin{itemize}
+    \item To design urban area's 3D geometry.
+    \item To implement Computational Fluid Dynamics (CFD) setup in ANSYS Fluent capable of handling transient species transport.
+    \item To optimize numerical parameters to ensure high precision convergence.
+    \item To visualize the evolution of the pollutant plume and identify areas of high accumulation.
+\end{itemize}
+
+\chapter{Geometry and Mesh}
+
+\section{Geometry and Computational Domain}
+
+The numerical investigation is based on an idealized Urban Street Canyon (USC) configuration. The geometry is defined by a unity aspect ratio, where the street width ($W$) and building height ($H$) are both set to 18~m ($W/H = 1$). This specific configuration was chosen to maintain consistency with the experimental wind-tunnel (WT) data provided by the University of Karlsruhe, Germany. 
+
+The validation of the current numerical model relies on the comparison between computational results and concentration measurements available in the public scientific database, as discussed in previous studies comparing \textit{Reynolds-Averaged Navier-Stokes} (RANS) and \textit{Large Eddy Simulation} (LES) approaches for atmospheric pollutant dispersion.
+
+The first phase of the project involved the construction of a 3D model representing the street canyon area. The flow domain and its respective boundary conditions are defined as follows:
+
+\begin{itemize}
+    \item \textbf{Main Air Inlet:} A velocity-inlet profile representing the atmospheric boundary layer.
+    \item \textbf{Outlet:} A zero-static pressure outlet to allow for fully developed flow.
+    \item \textbf{Pollutant Sources:} Two parallel line sources located at the ground level between the buildings to simulate vehicular emissions ($SF_6$). Each source has a width of $0.12H$ and extends beyond the building length by 10\% to minimize boundary interference.
+\end{itemize}
+
+The detailed dimensions of the computational domain and the nested subdomains are illustrated in Figure 2.1.
+
+\begin{figure}[htbp]
+    \centering
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{domain_setup.png}
+        \caption{Top view of the domain}
+        \label{fig:domain:top}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{subdomain_setup.png}
+        \caption{subdomain }
+        \label{fig:domain:side}
+    \end{subfigure}
+
+    \caption{Computational domain setup: (a) layout and subdomains; (b) applied boundary conditions and line source locations.}
+    \label{fig:domain_full}
+\end{figure}
+
+
+
+
+% mesh size 0.1 H
+% sub mesh (element size) 0,08 H - geometry 13 faces - plane, 2 building(5 faces each) , line sources
+
+% growth rate 1,2
+
+
+
+
+\end{document}
+
+
+\documentclass[fleqn, a4paper]{article}
