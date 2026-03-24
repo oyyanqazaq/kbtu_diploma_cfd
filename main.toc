@@ -1,8 +1,0 @@
-\babel@toc {english}{}\relax 
-\contentsline {chapter}{\numberline {1}Introduction}{2}{chapter.1}%
-\contentsline {section}{\numberline {1.1}Background and Motivation}{2}{section.1.1}%
-\contentsline {section}{\numberline {1.2}Problem Statement}{2}{section.1.2}%
-\contentsline {section}{\numberline {1.3}Sulfur hexafluoride ($SF_6$) as a Pollutant}{2}{section.1.3}%
-\contentsline {section}{\numberline {1.4}Objectives}{2}{section.1.4}%
-\contentsline {chapter}{\numberline {2}Geometry and Mesh}{3}{chapter.2}%
-\contentsline {section}{\numberline {2.1}Geometry and Computational Domain}{3}{section.2.1}%
