@@ -1,6 +1,6 @@
 # Fdb version 4
-["pdflatex"] 1774370236.27848 "/Users/user/Documents/Уник/Diploma/main.tex" "main.pdf" "main" 1774370237.03198 0
-  "/Users/user/Documents/Уник/Diploma/main.tex" 1774370227.58274 6952 5a9b5229f4be1a97226b7ddc0f8c9503 ""
+["pdflatex"] 1774450588.74811 "/Users/user/Documents/Уник/Diploma/main.tex" "main.pdf" "main" 1774450589.53396 0
+  "/Users/user/Documents/Уник/Diploma/main.tex" 1774450588.23199 8991 0fb1c0eb432e0f890b0e2ece950aa4a0 ""
   "/Users/user/Library/Application Support/MiKTeX/texmfs/data/fonts/map/pdftex/pdftex.map" 1774347886.66494 80937 91001db6d4ae332437b4b739862cda02 ""
   "/Users/user/Library/Application Support/MiKTeX/texmfs/data/fonts/pk/ljfour/jknappen/ec/dpi600/ecbx1095.pk" 1774341561.64333 28976 7d37c79b0f3cb38a6121a263b70abc6c ""
   "/Users/user/Library/Application Support/MiKTeX/texmfs/data/fonts/pk/ljfour/jknappen/ec/dpi600/ecbx1440.pk" 1774341557.35619 40136 7dfde1d62f480dc320b90ac9f484971c ""
@@ -11,6 +11,7 @@
   "/Users/user/Library/Application Support/MiKTeX/texmfs/data/fonts/pk/ljfour/jknappen/ec/dpi600/ecrm1200.pk" 1774341562.70683 28440 0f2c62c48129ef791a62b76c865d4267 ""
   "/Users/user/Library/Application Support/MiKTeX/texmfs/data/fonts/pk/ljfour/jknappen/ec/dpi600/ecrm1728.pk" 1774341563.78293 42516 26cd694de7fdce241dd260ac39672220 ""
   "/Users/user/Library/Application Support/MiKTeX/texmfs/data/fonts/pk/ljfour/jknappen/ec/dpi600/ecti1095.pk" 1774347070.84425 35204 94c4bded3352133318ce249181f6dada ""
+  "/Users/user/Library/Application Support/MiKTeX/texmfs/data/fonts/pk/ljfour/jknappen/ec/dpi600/ectt1000.pk" 1774445527.13645 20028 def5da9e43b3e24b955a8b1bdf14ad55 ""
   "/Users/user/Library/Application Support/MiKTeX/texmfs/data/fonts/pk/ljfour/jknappen/ec/dpi600/tcrm1095.pk" 1774341556.28068 12668 a3195b3580a05b92f568cfbb69f00133 ""
   "/Users/user/Library/Application Support/MiKTeX/texmfs/data/miktex/data/le/pdftex/pdflatex.fmt" 1754467333.12667 10055523 c8458d7fb479fbebc5bbacf81b5522ed ""
   "/Users/user/Library/Application Support/MiKTeX/texmfs/install/fonts/tfm/jknappen/ec/ecbx1095.tfm" 1754466179.67344 3228 aacd2ac2d814480e4422ad7e830fd2d4 ""
@@ -24,6 +25,8 @@
   "/Users/user/Library/Application Support/MiKTeX/texmfs/install/fonts/tfm/jknappen/ec/ecrm1728.tfm" 1754466179.68587 3168 11457c8185ce67fb79662ba8b03d6db1 ""
   "/Users/user/Library/Application Support/MiKTeX/texmfs/install/fonts/tfm/jknappen/ec/ecrm2074.tfm" 1754466179.68604 3184 b2541675eba9fa86d240ec0ecc913558 ""
   "/Users/user/Library/Application Support/MiKTeX/texmfs/install/fonts/tfm/jknappen/ec/ecti1095.tfm" 1754466179.70113 2852 cf233cde705f180d95560390f0f826e7 ""
+  "/Users/user/Library/Application Support/MiKTeX/texmfs/install/fonts/tfm/jknappen/ec/ectt1000.tfm" 1754466179.70232 1348 d70ddf2d5d512b838e50a335e385e919 ""
+  "/Users/user/Library/Application Support/MiKTeX/texmfs/install/fonts/tfm/jknappen/ec/ectt1095.tfm" 1754466179.70243 1352 fa21dcb5ddc7d1dc47d14cd897fdeb0f ""
   "/Users/user/Library/Application Support/MiKTeX/texmfs/install/fonts/tfm/jknappen/ec/tcrm1095.tfm" 1754466179.72102 1460 8005ce585ff351dff78998923504da5e ""
   "/Users/user/Library/Application Support/MiKTeX/texmfs/install/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1754466168.86819 1004 54797486969f23fa377b128694d548df ""
   "/Users/user/Library/Application Support/MiKTeX/texmfs/install/fonts/tfm/public/amsfonts/cmextra/cmex8.tfm" 1754466168.86834 988 bdf658c3bfc2d96d3c8b02cfc1c94c20 ""
@@ -163,6 +166,7 @@
   "/Users/user/Library/Application Support/MiKTeX/texmfs/install/tex/latex/l3backend/l3backend-pdftex.def" 1754466182.35271 30351 a2b09edc6c93a742566b222c33d0278e ""
   "/Users/user/Library/Application Support/MiKTeX/texmfs/install/tex/latex/listings/listings.cfg" 1754466183.08645 1865 301ae3c26fb8c0243307b619a6aa2dd3 ""
   "/Users/user/Library/Application Support/MiKTeX/texmfs/install/tex/latex/listings/listings.sty" 1754466183.07047 81640 997090b6c021dc4af9ee00a97b85c5b4 ""
+  "/Users/user/Library/Application Support/MiKTeX/texmfs/install/tex/latex/listings/lstlang1.sty" 1754466183.08213 206518 4eb59a801ad842a713fa168c34227290 ""
   "/Users/user/Library/Application Support/MiKTeX/texmfs/install/tex/latex/listings/lstmisc.sty" 1754466183.0732 77051 be68720e5402397a830abb9eed5a2cb4 ""
   "/Users/user/Library/Application Support/MiKTeX/texmfs/install/tex/latex/listings/lstpatch.sty" 1754466183.08495 353 9024412f43e92cd5b21fe9ded82d0610 ""
   "/Users/user/Library/Application Support/MiKTeX/texmfs/install/tex/latex/mathtools/mathtools.sty" 1754467336.11656 62711 3b0ed1d68b598a75677c10d16646d5e5 ""
@@ -186,10 +190,10 @@
   "/Users/user/Library/Application Support/MiKTeX/texmfs/install/tex/latex/url/url.sty" 1754466193.74614 12796 8edb7d69a20b857904dd0ea757c14ec9 ""
   "/Users/user/Library/Application Support/MiKTeX/texmfs/install/tex/latex/xcolor/xcolor.sty" 1754466193.84698 55384 b454dec21c2d9f45ec0b793f0995b992 ""
   "domain_setup.png" 1774347288.87623 51445 c2c98018b8fccef4f8ecf2fffb9a9fd2 ""
-  "main.aux" 1774370236.90251 2059 60bcfe383b32ad93ecc72c9582de0ce1 "pdflatex"
-  "main.out" 1774370236.90323 1171 8ae6093ecb80cb5469e8ab51fc6b5c7d "pdflatex"
-  "main.tex" 1774370227.58274 6952 5a9b5229f4be1a97226b7ddc0f8c9503 ""
-  "main.toc" 1774370236.90349 599 3ee16e4ce7c1530e0e81e066f6e21b73 "pdflatex"
+  "main.aux" 1774450589.40043 2185 8e9288a8d429072e3a1f90b6123625f6 "pdflatex"
+  "main.out" 1774450589.40113 1171 8ae6093ecb80cb5469e8ab51fc6b5c7d "pdflatex"
+  "main.tex" 1774450588.23199 8991 0fb1c0eb432e0f890b0e2ece950aa4a0 ""
+  "main.toc" 1774450589.40139 599 3ee16e4ce7c1530e0e81e066f6e21b73 "pdflatex"
   "subdomain_setup.png" 1774347659.48488 25361 8bfbf61d0f86dc83bdd36d00b1721f2d ""
   (generated)
   "main.aux"

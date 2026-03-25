@@ -345,9 +345,19 @@ INPUT ./subdomain_setup.png
 INPUT ./subdomain_setup.png
 INPUT ./subdomain_setup.png
 INPUT ./subdomain_setup.png
+INPUT /Users/user/Library/Application Support/MiKTeX/texmfs/install/tex/latex/listings/lstlang1.sty
+INPUT /Users/user/Library/Application Support/MiKTeX/texmfs/install/tex/latex/listings/lstlang1.sty
+INPUT /Users/user/Library/Application Support/MiKTeX/texmfs/install/tex/latex/listings/lstlang1.sty
+INPUT /Users/user/Library/Application Support/MiKTeX/texmfs/install/tex/latex/listings/lstmisc.sty
+INPUT /Users/user/Library/Application Support/MiKTeX/texmfs/install/tex/latex/listings/lstmisc.sty
+INPUT /Users/user/Library/Application Support/MiKTeX/texmfs/install/tex/latex/listings/lstmisc.sty
+INPUT /Users/user/Library/Application Support/MiKTeX/texmfs/install/fonts/tfm/jknappen/ec/ectt1095.tfm
+INPUT /Users/user/Library/Application Support/MiKTeX/texmfs/install/fonts/tfm/jknappen/ec/ectt1000.tfm
 INPUT main.aux
 INPUT ./main.out
 INPUT ./main.out
+INPUT /Users/user/Library/Application Support/MiKTeX/texmfs/data/fonts/pk/ljfour/jknappen/ec/dpi600/ectt1000.pk
+INPUT /Users/user/Library/Application Support/MiKTeX/texmfs/data/fonts/pk/ljfour/jknappen/ec/dpi600/ectt1000.pk
 INPUT /Users/user/Library/Application Support/MiKTeX/texmfs/data/fonts/pk/ljfour/jknappen/ec/dpi600/ecrm1000.pk
 INPUT /Users/user/Library/Application Support/MiKTeX/texmfs/data/fonts/pk/ljfour/jknappen/ec/dpi600/ecrm1000.pk
 INPUT /Users/user/Library/Application Support/MiKTeX/texmfs/data/fonts/pk/ljfour/jknappen/ec/dpi600/ecti1095.pk

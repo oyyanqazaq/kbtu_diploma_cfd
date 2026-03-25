@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 22.1) (preloaded format=pdflatex 2025.8.6)  25 MAR 2026 19:56
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 22.1) (preloaded format=pdflatex 2025.8.6)  25 MAR 2026 18:30
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -666,7 +666,31 @@ Package caption Info: New subtype `subfigure' on input line 238.
 \c@subfigure=\count382
 Package caption Info: New subtype `subtable' on input line 238.
 \c@subtable=\count383
-) (/Users/user/Library/Application Support/MiKTeX/texmfs/install/tex/latex/titlesec/titlesec.sty
+)
+/Users/user/Documents/Уник/Diploma/main.tex:14: Undefined control sequence.
+<recently read> \userpackage 
+                             
+l.14 \userpackage
+                 {listings}
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+
+/Users/user/Documents/Уник/Diploma/main.tex:14: LaTeX Error: Missing \begin{document}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.14 \userpackage{l
+                   istings}
+You're in trouble here.  Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+(/Users/user/Library/Application Support/MiKTeX/texmfs/install/tex/latex/titlesec/titlesec.sty
 Package: titlesec 2025/01/04 v2.17 Sectioning titles
 \ttl@box=\box117
 \beforetitleunit=\skip64
@@ -680,28 +704,28 @@ Package: titlesec 2025/01/04 v2.17 Sectioning titles
 ) (/Users/user/Library/Application Support/MiKTeX/texmfs/install/tex/latex/l3backend/l3backend-pdftex.def
 File: l3backend-pdftex.def 2025-06-09 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count384
-) (main.aux)
+)
+No file main.aux.
 \openout1 = `main.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 75.
-LaTeX Font Info:    ... okay on input line 75.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 75.
-LaTeX Font Info:    ... okay on input line 75.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 75.
-LaTeX Font Info:    ... okay on input line 75.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 75.
-LaTeX Font Info:    ... okay on input line 75.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 75.
-LaTeX Font Info:    ... okay on input line 75.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 75.
-LaTeX Font Info:    ... okay on input line 75.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 75.
-LaTeX Font Info:    ... okay on input line 75.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 75.
-LaTeX Font Info:    ... okay on input line 75.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 75.
-LaTeX Font Info:    ... okay on input line 75.
-
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 74.
+LaTeX Font Info:    ... okay on input line 74.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 74.
+LaTeX Font Info:    ... okay on input line 74.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 74.
+LaTeX Font Info:    ... okay on input line 74.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 74.
+LaTeX Font Info:    ... okay on input line 74.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 74.
+LaTeX Font Info:    ... okay on input line 74.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 74.
+LaTeX Font Info:    ... okay on input line 74.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 74.
+LaTeX Font Info:    ... okay on input line 74.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 74.
+LaTeX Font Info:    ... okay on input line 74.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 74.
+LaTeX Font Info:    ... okay on input line 74.
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
 *geometry* verbose mode - [ preamble ] result:
@@ -756,32 +780,40 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 48
 File: epstopdf-sys.cfg 2021/03/18 v2.0 Configuration of epstopdf for MiKTeX
 ))
 \c@lstlisting=\count391
-Package hyperref Info: Link coloring OFF on input line 75.
- (main.out) (main.out)
+Package hyperref Info: Link coloring OFF on input line 74.
 \@outlinefile=\write4
 \openout4 = `main.out'.
 
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: End \AtBeginDocument code.
-LaTeX Font Info:    Trying to load font information for U+msa on input line 78.
- (/Users/user/Library/Application Support/MiKTeX/texmfs/install/tex/latex/amsfonts/umsa.fd
-File: umsa.fd 2013/01/14 v3.01 AMS symbols A
-)
-LaTeX Font Info:    Trying to load font information for U+msb on input line 78.
- (/Users/user/Library/Application Support/MiKTeX/texmfs/install/tex/latex/amsfonts/umsb.fd
-File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-)
+
 
 [1
 
 {/Users/user/Library/Application Support/MiKTeX/texmfs/data/fonts/map/pdftex/pdftex.map}]
+LaTeX Font Info:    Trying to load font information for U+msa on input line 77.
+ (/Users/user/Library/Application Support/MiKTeX/texmfs/install/tex/latex/amsfonts/umsa.fd
+File: umsa.fd 2013/01/14 v3.01 AMS symbols A
+)
+LaTeX Font Info:    Trying to load font information for U+msb on input line 77.
+ (/Users/user/Library/Application Support/MiKTeX/texmfs/install/tex/latex/amsfonts/umsb.fd
+File: umsb.fd 2013/01/14 v3.01 AMS symbols B
+)
 
 
 pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.81 \end{abstract}
-                    [1] (main.toc)
+l.77 
+      [1]
+
+
+pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.80 \end{abstract}
+                    [1]
+No file main.toc.
 \tf@toc=\write5
 \openout5 = `main.toc'.
 
@@ -791,22 +823,22 @@ l.81 \end{abstract}
 pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.84 \newpage
+l.83 \newpage
               [1
 
 ]
 Chapter 1.
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 96.
+(hyperref)                removing `math shift' on input line 95.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `subscript' on input line 96.
+(hyperref)                removing `subscript' on input line 95.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 96.
+(hyperref)                removing `math shift' on input line 95.
 
 
 
@@ -815,62 +847,216 @@ Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 ]
 Chapter 2.
 
-Overfull \hbox (3.33987pt too wide) in paragraph at lines 115--116
+Overfull \hbox (3.33987pt too wide) in paragraph at lines 114--115
 []\T1/cmr/m/n/10.95 The validation of the current numerical model relies on the comparison between computational
  []
 
 
-Overfull \hbox (3.37283pt too wide) in paragraph at lines 115--116
+Overfull \hbox (3.37283pt too wide) in paragraph at lines 114--115
 \T1/cmr/m/n/10.95 previous studies comparing \T1/cmr/m/it/10.95 Reynolds-Averaged Navier-Stokes \T1/cmr/m/n/10.95 (RANS) and \T1/cmr/m/it/10.95 Large Eddy Simulation
  []
 
 
-Overfull \hbox (10.83899pt too wide) in paragraph at lines 125--126
+Overfull \hbox (10.83899pt too wide) in paragraph at lines 124--125
 []\T1/cmr/m/n/10.95 The detailed dimensions of the computational domain and the nested subdomains are illustrated
  []
 
-<domain_setup.png, id=69, 673.76718pt x 548.0475pt>
+<domain_setup.png, id=42, 673.76718pt x 548.0475pt>
 File: domain_setup.png Graphic file (type png)
 <use domain_setup.png>
-Package pdftex.def Info: domain_setup.png  used on input line 131.
+Package pdftex.def Info: domain_setup.png  used on input line 130.
 (pdftex.def)             Requested size: 217.42265pt x 176.85059pt.
-<subdomain_setup.png, id=71, 994.46532pt x 597.73312pt>
+<subdomain_setup.png, id=44, 994.46532pt x 597.73312pt>
 File: subdomain_setup.png Graphic file (type png)
 <use subdomain_setup.png>
-Package pdftex.def Info: subdomain_setup.png  used on input line 138.
+Package pdftex.def Info: subdomain_setup.png  used on input line 137.
 (pdftex.def)             Requested size: 217.42265pt x 130.68083pt.
-(/Users/user/Library/Application Support/MiKTeX/texmfs/install/tex/latex/listings/lstlang1.sty
-File: lstlang1.sty 2024/09/23 1.10c listings language file
-) (/Users/user/Library/Application Support/MiKTeX/texmfs/install/tex/latex/listings/lstmisc.sty
-File: lstmisc.sty 2024/09/23 1.10c (Carsten Heinz)
-)
-Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on input line 148.
+/Users/user/Documents/Уник/Diploma/main.tex:167: You can't use `macro parameter character #' in vertical mode.
+l.167 #
+       include "udf.h"
+Sorry, but I'm not programmed to handle this case;
+I'll just pretend that you didn't ask for it.
+If you're in the wrong mode, you might be able to
+return to the right one by typing `I}' or `I$' or `I\par'.
+
+/Users/user/Documents/Уник/Diploma/main.tex:169: You can't use `macro parameter character #' in vertical mode.
+l.169 #
+       define U_STAR 0.54
+Sorry, but I'm not programmed to handle this case;
+I'll just pretend that you didn't ask for it.
+If you're in the wrong mode, you might be able to
+return to the right one by typing `I}' or `I$' or `I\par'.
+
+/Users/user/Documents/Уник/Diploma/main.tex:169: Missing $ inserted.
+<inserted text> 
+                $
+l.169 #define U_
+                STAR 0.54
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+/Users/user/Documents/Уник/Diploma/main.tex:170: You can't use `macro parameter character #' in math mode.
+l.170 #
+       define DELTA 0.5
+Sorry, but I'm not programmed to handle this case;
+I'll just pretend that you didn't ask for it.
+If you're in the wrong mode, you might be able to
+return to the right one by typing `I}' or `I$' or `I\par'.
+
+/Users/user/Documents/Уник/Diploma/main.tex:171: You can't use `macro parameter character #' in math mode.
+l.171 #
+       define KAPPA 0.4
+Sorry, but I'm not programmed to handle this case;
+I'll just pretend that you didn't ask for it.
+If you're in the wrong mode, you might be able to
+return to the right one by typing `I}' or `I$' or `I\par'.
+
+/Users/user/Documents/Уник/Diploma/main.tex:172: You can't use `macro parameter character #' in math mode.
+l.172 #
+       define CMU 0.09
+Sorry, but I'm not programmed to handle this case;
+I'll just pretend that you didn't ask for it.
+If you're in the wrong mode, you might be able to
+return to the right one by typing `I}' or `I$' or `I\par'.
+
+/Users/user/Documents/Уник/Diploma/main.tex:173: Missing $ inserted.
+<inserted text> 
+                $
+l.173 
+      
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+/Users/user/Documents/Уник/Diploma/main.tex:174: Missing $ inserted.
+<inserted text> 
+                $
+l.174 DEFINE_
+             PROFILE(velocity_inlet, thread, position)
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+/Users/user/Documents/Уник/Diploma/main.tex:178: Double subscript.
+l.178   begin_f_
+                loop(f, thread)
+I treat `x_1_2' essentially like `x_1{}_2'.
+
+/Users/user/Documents/Уник/Diploma/main.tex:184: Double subscript.
+l.184   end_f_
+              loop(f, thread)
+I treat `x_1_2' essentially like `x_1{}_2'.
+
+/Users/user/Documents/Уник/Diploma/main.tex:186: Missing $ inserted.
+<inserted text> 
+                $
+l.186 
+      
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+
+Overfull \hbox (585.93085pt too wide) in paragraph at lines 174--186
+[]\T1/cmr/m/n/10.95 DEFINE$[]\OML/cmm/m/it/10.95 ROFILE\OT1/cmr/m/n/10.95 (\OML/cmm/m/it/10.95 velocity[]nlet; thread; position\OT1/cmr/m/n/10.95 )[]$ 
+ []
+
+/Users/user/Documents/Уник/Diploma/main.tex:187: Missing $ inserted.
+<inserted text> 
+                $
+l.187 DEFINE_
+             PROFILE(k_profile, thread, position)
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+/Users/user/Documents/Уник/Diploma/main.tex:191: Double subscript.
+l.191   begin_f_
+                loop(f, thread)
+I treat `x_1_2' essentially like `x_1{}_2'.
+
+/Users/user/Documents/Уник/Diploma/main.tex:197: Double subscript.
+l.197   end_f_
+              loop(f, thread)
+I treat `x_1_2' essentially like `x_1{}_2'.
+
+/Users/user/Documents/Уник/Diploma/main.tex:199: Missing $ inserted.
+<inserted text> 
+                $
+l.199 
+      
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+
+Overfull \hbox (710.85684pt too wide) in paragraph at lines 187--199
+[]\T1/cmr/m/n/10.95 DEFINE$[]\OML/cmm/m/it/10.95 ROFILE\OT1/cmr/m/n/10.95 (\OML/cmm/m/it/10.95 k[]rofile; thread; position\OT1/cmr/m/n/10.95 )[]$ 
+ []
+
 
 
 [3
 
  <./domain_setup.png> <./subdomain_setup.png>]
+/Users/user/Documents/Уник/Diploma/main.tex:200: Missing $ inserted.
+<inserted text> 
+                $
+l.200 DEFINE_
+             PROFILE(eps_profile, thread, position)
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+/Users/user/Documents/Уник/Diploma/main.tex:204: Double subscript.
+l.204   begin_f_
+                loop(f, thread)
+I treat `x_1_2' essentially like `x_1{}_2'.
+
+/Users/user/Documents/Уник/Diploma/main.tex:212: Double subscript.
+l.212   end_f_
+              loop(f, thread)
+I treat `x_1_2' essentially like `x_1{}_2'.
+
+/Users/user/Documents/Уник/Diploma/main.tex:214: Missing $ inserted.
+<inserted text> 
+                $
+l.214 
+      
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+
+Overfull \hbox (957.74844pt too wide) in paragraph at lines 200--214
+[]\T1/cmr/m/n/10.95 DEFINE$[]\OML/cmm/m/it/10.95 ROFILE\OT1/cmr/m/n/10.95 (\OML/cmm/m/it/10.95 eps[]rofile; thread; position\OT1/cmr/m/n/10.95 )[]$ 
+ []
+
+
 
 [4] (main.aux)
  ***********
 LaTeX2e <2025-06-01> patch level 1
 L3 programming layer <2025-07-19>
  ***********
-Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: 8AE6093ECB80CB5469E8AB51FC6B5C7D;1171.
+
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
+
+Package rerunfilecheck Warning: File `main.out' has changed.
+(rerunfilecheck)                Rerun to get outlines right
+(rerunfilecheck)                or use package `bookmark'.
+
+Package rerunfilecheck Info: Checksums for `main.out':
+(rerunfilecheck)             Before: <no file>
+(rerunfilecheck)             After:  8AE6093ECB80CB5469E8AB51FC6B5C7D;1171.
  ) 
 Here is how much of TeX's memory you used:
- 26628 strings out of 470090
- 488302 string characters out of 2480919
- 1281806 words of memory out of 3000000
- 54504 multiletter control sequences out of 15000+600000
- 644988 words of font info for 89 fonts, out of 8000000 for 9000
+ 26151 strings out of 470090
+ 482999 string characters out of 2480919
+ 883370 words of memory out of 3000000
+ 54090 multiletter control sequences out of 15000+600000
+ 644361 words of font info for 87 fonts, out of 8000000 for 9000
  0 hyphenation exceptions out of 8191
- 84i,8n,91p,808b,2110s stack positions out of 5000i,500n,10000p,200000b,80000s
- </Users/user/Library/Application Support/MiKTeX/texmfs/data/fonts/pk/ljfour/jknappen/ec/dpi600/ectt1000.pk> </Users/user/Library/Application Support/MiKTeX/texmfs/data/fonts/pk/ljfour/jknappen/ec/dpi600/ecrm1000.pk> </Users/user/Library/Application Support/MiKTeX/texmfs/data/fonts/pk/ljfour/jknappen/ec/dpi600/ecti1095.pk> </Users/user/Library/Application Support/MiKTeX/texmfs/data/fonts/pk/ljfour/jknappen/ec/dpi600/tcrm1095.pk> </Users/user/Library/Application Support/MiKTeX/texmfs/data/fonts/pk/ljfour/jknappen/ec/dpi600/ecbx1440.pk> </Users/user/Library/Application Support/MiKTeX/texmfs/data/fonts/pk/ljfour/jknappen/ec/dpi600/ecbx2074.pk> </Users/user/Library/Application Support/MiKTeX/texmfs/data/fonts/pk/ljfour/jknappen/ec/dpi600/ecbx2488.pk> </Users/user/Library/Application Support/MiKTeX/texmfs/data/fonts/pk/ljfour/jknappen/ec/dpi600/ecrm1095.pk> </Users/user/Library/Application Support/MiKTeX/texmfs/data/fonts/pk/ljfour/jknappen/ec/dpi600/ecbx1095.pk> </Users/user/Library/Application Support/MiKTeX/texmfs/data/fonts/pk/ljfour/jknappen/ec/dpi600/ecrm1200.pk> </Users/user/Library/Application Support/MiKTeX/texmfs/data/fonts/pk/ljfour/jknappen/ec/dpi600/ecrm1728.pk></Users/user/Library/Application Support/MiKTeX/texmfs/install/fonts/type1/public/amsfonts/cm/cmmi10.pfb></Users/user/Library/Application Support/MiKTeX/texmfs/install/fonts/type1/public/amsfonts/cm/cmmi12.pfb></Users/user/Library/Application Support/MiKTeX/texmfs/install/fonts/type1/public/amsfonts/cm/cmr10.pfb></Users/user/Library/Application Support/MiKTeX/texmfs/install/fonts/type1/public/amsfonts/cm/cmr8.pfb>
-Output written on main.pdf (6 pages, 229413 bytes).
+ 84i,8n,91p,808b,562s stack positions out of 5000i,500n,10000p,200000b,80000s
+ </Users/user/Library/Application Support/MiKTeX/texmfs/data/fonts/pk/ljfour/jknappen/ec/dpi600/ecrm1000.pk> </Users/user/Library/Application Support/MiKTeX/texmfs/data/fonts/pk/ljfour/jknappen/ec/dpi600/ecti1095.pk> </Users/user/Library/Application Support/MiKTeX/texmfs/data/fonts/pk/ljfour/jknappen/ec/dpi600/tcrm1095.pk> </Users/user/Library/Application Support/MiKTeX/texmfs/data/fonts/pk/ljfour/jknappen/ec/dpi600/ecbx1440.pk> </Users/user/Library/Application Support/MiKTeX/texmfs/data/fonts/pk/ljfour/jknappen/ec/dpi600/ecbx2074.pk> </Users/user/Library/Application Support/MiKTeX/texmfs/data/fonts/pk/ljfour/jknappen/ec/dpi600/ecbx2488.pk> </Users/user/Library/Application Support/MiKTeX/texmfs/data/fonts/pk/ljfour/jknappen/ec/dpi600/ecbx1095.pk> </Users/user/Library/Application Support/MiKTeX/texmfs/data/fonts/pk/ljfour/jknappen/ec/dpi600/ecrm1200.pk> </Users/user/Library/Application Support/MiKTeX/texmfs/data/fonts/pk/ljfour/jknappen/ec/dpi600/ecrm1728.pk> </Users/user/Library/Application Support/MiKTeX/texmfs/data/fonts/pk/ljfour/jknappen/ec/dpi600/ecrm1095.pk></Users/user/Library/Application Support/MiKTeX/texmfs/install/fonts/type1/public/amsfonts/cm/cmmi10.pfb></Users/user/Library/Application Support/MiKTeX/texmfs/install/fonts/type1/public/amsfonts/cm/cmmi12.pfb></Users/user/Library/Application Support/MiKTeX/texmfs/install/fonts/type1/public/amsfonts/cm/cmmi8.pfb></Users/user/Library/Application Support/MiKTeX/texmfs/install/fonts/type1/public/amsfonts/cm/cmr10.pfb></Users/user/Library/Application Support/MiKTeX/texmfs/install/fonts/type1/public/amsfonts/cm/cmr8.pfb></Users/user/Library/Application Support/MiKTeX/texmfs/install/fonts/type1/public/amsfonts/cm/cmsy10.pfb>
+Output written on main.pdf (7 pages, 226831 bytes).
 PDF statistics:
- 506 PDF objects out of 1000 (max. 8388607)
- 62 named destinations out of 1000 (max. 500000)
- 79 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 356 PDF objects out of 1000 (max. 8388607)
+ 14 named destinations out of 1000 (max. 500000)
+ 23 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -11,6 +11,8 @@
 \usepackage{xcolor}
 \usepackage{caption}
 \usepackage{subcaption}
+\usepackage{listings}
+\usepackage{xcolor}
 
 
 
@@ -143,17 +145,95 @@ The detailed dimensions of the computational domain and the nested subdomains ar
 \end{figure}
 
 
+\begin{lstlisting}[language=C, caption={udf}]
+#include "udf.h"
+
+#define U_STAR 0.54
+#define DELTA 0.5
+#define KAPPA 0.4
+#define CMU 0.09
+
+DEFINE_PROFILE(velocity_inlet, thread, position)
+{
+  real x[ND_ND], z;
+  face_t f;
+  begin_f_loop(f, thread)
+  {
+    F_CENTROID(x, f, thread);
+    z = x[2];
+    F_PROFILE(f, thread, position) = 4.7 * pow(z / 0.12, 0.3);
+  }
+  end_f_loop(f, thread)
+}
+
+DEFINE_PROFILE(k_profile, thread, position)
+{
+  real x[ND_ND], z;
+  face_t f;
+  begin_f_loop(f, thread)
+  {
+    F_CENTROID(x, f, thread);
+    z = x[2];
+    F_PROFILE(f, thread, position) = (pow(U_STAR, 2) / sqrt(CMU)) * (1.0 - z/DELTA);
+  }
+  end_f_loop(f, thread)
+}
+
+DEFINE_PROFILE(eps_profile, thread, position)
+{
+  real x[ND_ND], z;
+  face_t f;
+  begin_f_loop(f, thread)
+  {
+    F_CENTROID(x, f, thread);
+    z = x[2];
+    /* exception (z=0) */
+    if (z < 0.001) z = 0.001; 
+    F_PROFILE(f, thread, position) = (pow(U_STAR, 3) / (KAPPA * z)) * (1.0 - z/DELTA);
+  }
+  end_f_loop(f, thread)
+}
+\end{lstlisting}
 
 
-% mesh size 0.1 H
-% sub mesh (element size) 0,08 H - geometry 13 faces - plane, 2 building(5 faces each) , line sources
+% MESH:
+% mesh size H/4.5 (4m)
+% sub mesh (element size) H/9 (2m)
+% nodes 591 495
+% elements 3 388 605
+% inflation: layers: 5
+% quality: element quality, aspect ratio, skewness (graphs)
 
-growth rate 1,2
+% SETUP:
+% Gravity: by Z-axis -9,81
+% Time: Steady
+% Solver: Pressure-Based
+% Viscosity model: k-epsilon (2 eqn), standard model, Cmu = 0.09, C1-epsilon = 1.44, C2-epsilon = 1.92
+% SF6(tracer gas): Molecular weight: 146.06 (5 times heavier than air),  Density: ideal-gas, Viscosity: 1.53e-05 Pa*s (We will not use Specific heat, Thermal conductivity)
+% Mixture: Viscosity of air: 1.7894e-05 kg/m-s, Mass diffusivity: 9.5e-06 m2/s
+% Turbulent Schmidt Number: 0.7
 
 
+% Boundary conditions:
+% inlet: U_STAR = 0.54 m s^-1, DELTA = 0.5 m KAPPA (von Karman constant) = 0.4, Cmu = 0.09
+% pollution inlet: mass-flow-inlet: 0.00015 kg/s, turbulent intensity: 2%, turbulent viscosity ratio: 2.5
+% outlet: turbulent intensity: 5%, turbulent viscosity ratio: 10, Radial Equilibrium Pressure Dsitribution
+
+% Under relaxation factors:
+% Pressure 0.3
+% Momentum 0.7
+% Turbulent kinetic energy 0.8
+% Dissipation rate 0.8
+% air 0.9
+% sf6 0.9
+% energy 1
+
+% Equations:
+% Flow
+% Turbulence
+% air
+% sf6
+% energy
 
 
 \end{document}
-
-
-\documentclass[fleqn, a4paper]{article}
