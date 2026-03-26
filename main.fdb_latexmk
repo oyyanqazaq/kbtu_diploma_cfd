@@ -1,6 +1,6 @@
 # Fdb version 4
-["pdflatex"] 1774525787.48105 "/Users/user/Documents/Уник/Diploma/main.tex" "main.pdf" "main" 1774525788.79729 0
-  "/Users/user/Documents/Уник/Diploma/main.tex" 1774525785.91542 15214 8acdfbccf391fc39ca9c18fd0e638156 ""
+["pdflatex"] 1774527627.46812 "/Users/user/Documents/Уник/Diploma/main.tex" "main.pdf" "main" 1774527628.58168 0
+  "/Users/user/Documents/Уник/Diploma/main.tex" 1774527626.92735 18517 cb60fd7b1cb2029fc450b8a9dc273e6e ""
   "/Users/user/Library/Application Support/MiKTeX/texmfs/data/fonts/map/pdftex/pdftex.map" 1774347886.66494 80937 91001db6d4ae332437b4b739862cda02 ""
   "/Users/user/Library/Application Support/MiKTeX/texmfs/data/fonts/pk/ljfour/jknappen/ec/dpi600/ecbx1095.pk" 1774341561.64333 28976 7d37c79b0f3cb38a6121a263b70abc6c ""
   "/Users/user/Library/Application Support/MiKTeX/texmfs/data/fonts/pk/ljfour/jknappen/ec/dpi600/ecbx1440.pk" 1774341557.35619 40136 7dfde1d62f480dc320b90ac9f484971c ""
@@ -202,10 +202,10 @@
   "aspect-ratio.png" 1774525092.01597 23220 172de87c21afeae5efe1942fcaa58284 ""
   "domain_setup.png" 1774347288.87623 51445 c2c98018b8fccef4f8ecf2fffb9a9fd2 ""
   "elem-quality.png" 1774525091.64387 24368 e00f4b7e8347b14364bb490b87db6672 ""
-  "main.aux" 1774525788.62085 4131 f0de5da90874dcef74c11cdb98f4404a "pdflatex"
-  "main.out" 1774525788.62186 2129 7d9b0ed3ede5daddfbfd87507c04c17d "pdflatex"
-  "main.tex" 1774525785.91542 15214 8acdfbccf391fc39ca9c18fd0e638156 ""
-  "main.toc" 1774525788.62219 1027 f691b75a27f8e59b7495425c6b8707e3 "pdflatex"
+  "main.aux" 1774527628.43382 4880 e533e6d51ae18446cf9822518a4def96 "pdflatex"
+  "main.out" 1774527628.43475 2936 8b291c0749a6cba20704859428140464 "pdflatex"
+  "main.tex" 1774527626.92735 18517 cb60fd7b1cb2029fc450b8a9dc273e6e ""
+  "main.toc" 1774527628.43506 1379 e880ce0ac68b1d2efa48d06427f80a73 "pdflatex"
   "skewness.png" 1774525092.61917 27536 6d5e1ce7c2510c39d0bc628746360ca3 ""
   "subdomain_setup.png" 1774347659.48488 25361 8bfbf61d0f86dc83bdd36d00b1721f2d ""
   (generated)

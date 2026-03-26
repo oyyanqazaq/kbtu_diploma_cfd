@@ -206,15 +206,16 @@ The majority of elements maintain a skewness value below 0.25 and an aspect rati
 \chapter{Numerical Setup and Boundary Conditions}
 
 \section{Governing Equations}
-The fluid flow is governed by the 3D Unsteady Reynolds-Averaged Navier-Stokes (URANS) equations. The mass conservation and momentum equations are expressed as:
+The fluid flow is governed by the steady-state 3D Reynolds-Averaged Navier-Stokes (RANS) equations. Since the simulation is performed under steady conditions, the time-dependent terms are neglected. The mass conservation and momentum equations are expressed as follows:
 
 \begin{equation}
-    \frac{\partial \rho}{\partial t} + \nabla \cdot (\rho \mathbf{u}) = 0
+    \nabla \cdot (\rho \mathbf{u}) = 0
 \end{equation}
 
 \begin{equation}
-    \frac{\partial (\rho \mathbf{u})}{\partial t} + \nabla \cdot (\rho \mathbf{u} \mathbf{u}) = -\nabla p + \nabla \cdot (\tau) + \rho \mathbf{g}
+    \nabla \cdot (\rho \mathbf{u} \mathbf{u}) = -\nabla p + \nabla \cdot (\tau) + \rho \mathbf{g}
 \end{equation}
+
 
 For the pollutant dispersion, a species transport model without chemical reactions was employed. The local mass fraction of the pollutant ($SF_6$), denoted as $Y_i$, is predicted through the solution of a convection-diffusion equation:
 
@@ -222,6 +223,10 @@ For the pollutant dispersion, a species transport model without chemical reactio
     \frac{\partial}{\partial t}(\rho Y_i) + \nabla \cdot (\rho \mathbf{u} Y_i) = -\nabla \cdot \mathbf{J}_i + S_i
 \end{equation}
 where $\mathbf{J}_i$ is the diffusion flux of the species.
+
+
+
+
 
 \section{Inlet Boundary Conditions and UDF}
 To simulate a realistic Atmospheric Boundary Layer (ABL), the inlet velocity, turbulent kinetic energy ($k$), and dissipation rate ($\varepsilon$) were prescribed using a User-Defined Function (UDF). The velocity profile follows a power law representing neutral atmospheric stability.
@@ -233,9 +238,7 @@ The profiles are defined as:
     \item \textbf{Dissipation Rate ($\varepsilon$):} Calculated to ensure an equilibrium ABL, preventing the decay of turbulence as the flow traverses the domain.
 \end{itemize}
 
-\newpage
-
-
+\bigskip
 The inlet wind speed was assumed to follow a power law profile:
 
 \begin{equation}
@@ -251,8 +254,6 @@ Turbulent kinetic energy and dissipation rate profiles were specified as follows
   k = \frac{u^2_*}{\sqrt{C_\mu}} \Bigl( 1 - \frac{z}{\delta} \Bigr)
   \label{eq:Turbulent kinetic energy}
 \end{equation}
-
-and
 
 \begin{equation}
   \varepsilon = \frac{u_*^3}{\kappa z}  \Bigl( 1 - \frac{z}{\delta} \Bigr)
@@ -320,17 +321,55 @@ DEFINE_PROFILE(eps_profile, thread, position)
 }
 \end{lstlisting}
 
+\section{Boundary Conditions}
+The boundary conditions were defined to accurately replicate the atmospheric boundary layer and the specific pollutant emission source:
+
+\begin{itemize}
+    \item \textbf{Main Inlet:} A velocity-inlet profile implemented via UDF with $u_* = 0.54$ m/s and a boundary layer depth $\delta = 144$ m (scaled to full-size geometry)[cite: 181].
+    \item \textbf{Pollution Source:} A \textit{mass-flow-inlet} was used for the $SF_6$ release with a rate of $0.00015$ kg/s. The turbulence parameters at the source were set to a $2\%$ intensity and a turbulent viscosity ratio of $2.5$.
+    \item \textbf{Outlet:} A \textit{pressure-outlet} was applied with a \textit{Radial Equilibrium Pressure Distribution} to account for the vertical pressure gradient. Backflow turbulence was set to $5\%$ intensity and a viscosity ratio of $10$.
+    \item \textbf{Walls:} No-slip conditions were applied to all building and ground surfaces[cite: 168, 206].
+\end{itemize}
+
+\section{Solver Stability and Convergence}
+To ensure stable convergence and prevent numerical oscillations during the steady-state iterations, the Under-Relaxation Factors (URF) were optimized. Higher values were assigned to the species and energy equations to prioritize their convergence after the flow field became partially developed.
 
 
-% SETUP:
-% Gravity: by Z-axis -9,81
-% Time: Steady
-% Solver: Pressure-Based
-% Viscosity model: k-epsilon (2 eqn), standard model, Cmu = 0.09, C1-epsilon = 1.44, C2-epsilon = 1.92
-% SF6(tracer gas): Molecular weight: 146.06 (5 times heavier than air),  Density: ideal-gas, Viscosity: 1.53e-05 Pa*s (We will not use Specific heat, Thermal conductivity)
-% Mixture: Viscosity of air: 1.7894e-05 kg/m-s, Mass diffusivity: 9.5e-06 m2/s
-% Turbulent Schmidt Number: 0.7
+\begin{table}[htbp]
+    \centering
+    \caption{Applied Under-Relaxation Factors}
+    \label{tab:urf}
+    \begin{tabular}{l|c}
+        \hline
+        \textbf{Variable} & \textbf{Factor Value} \\ \hline
+        Pressure & $0.3$ \\
+        Momentum & $0.7$ \\
+        Turbulent Kinetic Energy ($k$) & $0.8$ \\
+        Dissipation Rate ($\varepsilon$) & $0.8$ \\
+        Air (Mass Fraction) & $0.9$ \\
+        $SF_6$ (Mass Fraction) & $0.9$ \\
+        Energy & $1.0$ \\ \hline
+    \end{tabular}
+\end{table}
 
+The solution was considered converged when the scaled residuals for all equations reached a threshold of $1 \times 10^{-5}$. In addition to residuals, the mass fraction of $SF_6$ at the outlet was monitored to ensure it reached a steady-state value.
+
+\section{Material Properties and Species Transport}
+The dispersion study involves a mixture of air and Sulfur hexafluoride ($SF_6$) as a tracer gas. To accurately simulate the buoyancy effects, the following properties were implemented:
+\begin{itemize}
+    \item \textbf{Tracer Gas ($SF_6$):} The molecular weight is set to $146.06$ kg/kmol, making it approximately five times heavier than air[cite: 158]. The density is modeled using the ideal-gas law, and the viscosity is defined as $1.53 \times 10^{-5}$ Pa$\cdot$s.
+    \item \textbf{Mixture Properties:} The background air viscosity is $1.7894 \times 10^{-5}$ kg/m$\cdot$s. The mass diffusivity for the $SF_6$-air mixture is specified as $9.5 \times 10^{-6}$ m$^2$/s[cite: 319].
+    \item \textbf{Turbulent Schmidt Number:} Following the standard recommendations for atmospheric dispersion, the Turbulent Schmidt Number ($Sc_t$) is set to $0.7$[cite: 320].
+\end{itemize}
+
+\section{Solver Configuration}
+The numerical solution was obtained using the following settings in ANSYS Fluent:
+\begin{itemize}
+    \item \textbf{Solver Type:} A pressure-based steady-state solver was employed[cite: 164, 274].
+    \item \textbf{Gravity:} Gravity was enabled in the negative Z-direction ($-9.81$ m/s$^2$) to account for the settling of the heavy tracer gas.
+    \item \textbf{Turbulence Model:} The standard $k-\epsilon$ model was used with the following constants: $C_\mu = 0.09$, $C_{1\epsilon} = 1.44$, and $C_{2\epsilon} = 1.92$[cite: 91].
+    \item \textbf{Discretization:} Second-Order Upwind schemes were applied for momentum and species transport to ensure higher accuracy and stability[cite: 275].
+\end{itemize}
 
 
 % Boundary conditions:
