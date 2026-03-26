@@ -6,3 +6,8 @@
 \contentsline {section}{\numberline {1.4}Objectives}{2}{section.1.4}%
 \contentsline {chapter}{\numberline {2}Geometry and Mesh}{3}{chapter.2}%
 \contentsline {section}{\numberline {2.1}Geometry and Computational Domain}{3}{section.2.1}%
+\contentsline {section}{\numberline {2.2}Computational Mesh}{4}{section.2.2}%
+\contentsline {section}{\numberline {2.3}Mesh Quality Assessment}{4}{section.2.3}%
+\contentsline {chapter}{\numberline {3}Numerical Setup and Boundary Conditions}{6}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Governing Equations}{6}{section.3.1}%
+\contentsline {section}{\numberline {3.2}Inlet Boundary Conditions and UDF}{6}{section.3.2}%

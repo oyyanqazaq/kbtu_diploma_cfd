@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 22.1) (preloaded format=pdflatex 2025.8.6)  25 MAR 2026 19:56
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 22.1) (preloaded format=pdflatex 2025.8.6)  26 MAR 2026 16:49
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -791,11 +791,21 @@ l.81 \end{abstract}
 pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.84 \newpage
+l.83 \newpage
               [1
 
 ]
 Chapter 1.
+
+Overfull \hbox (8.51038pt too wide) in paragraph at lines 90--91
+\T1/cmr/m/n/10.95 transport and gas leak propagation is critical for public safety and urban planning. In environments
+ []
+
+
+Overfull \hbox (10.47676pt too wide) in paragraph at lines 90--91
+\T1/cmr/m/n/10.95 with complex geometries, such as T-shaped intersections or street canyons, aerodynamic "trapping"
+ []
+
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 (hyperref)                removing `math shift' on input line 96.
@@ -829,48 +839,81 @@ Overfull \hbox (10.83899pt too wide) in paragraph at lines 125--126
 []\T1/cmr/m/n/10.95 The detailed dimensions of the computational domain and the nested subdomains are illustrated
  []
 
-<domain_setup.png, id=69, 673.76718pt x 548.0475pt>
+<domain_setup.png, id=94, 673.76718pt x 548.0475pt>
 File: domain_setup.png Graphic file (type png)
 <use domain_setup.png>
 Package pdftex.def Info: domain_setup.png  used on input line 131.
 (pdftex.def)             Requested size: 217.42265pt x 176.85059pt.
-<subdomain_setup.png, id=71, 994.46532pt x 597.73312pt>
+<subdomain_setup.png, id=96, 994.46532pt x 597.73312pt>
 File: subdomain_setup.png Graphic file (type png)
 <use subdomain_setup.png>
 Package pdftex.def Info: subdomain_setup.png  used on input line 138.
 (pdftex.def)             Requested size: 217.42265pt x 130.68083pt.
-(/Users/user/Library/Application Support/MiKTeX/texmfs/install/tex/latex/listings/lstlang1.sty
-File: lstlang1.sty 2024/09/23 1.10c listings language file
-) (/Users/user/Library/Application Support/MiKTeX/texmfs/install/tex/latex/listings/lstmisc.sty
-File: lstmisc.sty 2024/09/23 1.10c (Carsten Heinz)
-)
-Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on input line 148.
 
 
 [3
 
  <./domain_setup.png> <./subdomain_setup.png>]
 
-[4] (main.aux)
+[4]
+<elem-quality.png, id=111, 1416.79312pt x 750.55406pt>
+File: elem-quality.png Graphic file (type png)
+<use elem-quality.png>
+Package pdftex.def Info: elem-quality.png  used on input line 180.
+(pdftex.def)             Requested size: 144.95303pt x 76.78912pt.
+<aspect-ratio.png, id=112, 1419.05156pt x 743.77875pt>
+File: aspect-ratio.png Graphic file (type png)
+<use aspect-ratio.png>
+Package pdftex.def Info: aspect-ratio.png  used on input line 187.
+(pdftex.def)             Requested size: 144.95303pt x 75.9711pt.
+<skewness.png, id=113, 1422.81563pt x 749.80125pt>
+File: skewness.png Graphic file (type png)
+<use skewness.png>
+Package pdftex.def Info: skewness.png  used on input line 194.
+(pdftex.def)             Requested size: 144.95303pt x 76.38031pt.
+
+
+[5 <./elem-quality.png> <./aspect-ratio.png> <./skewness.png>]
+Chapter 3.
+
+Overfull \hbox (30.58023pt too wide) in paragraph at lines 206--206
+|\T1/cmr/bx/n/24.88 Numerical Setup and Boundary Conditions| 
+ []
+
+
+
+[6
+
+] (/Users/user/Library/Application Support/MiKTeX/texmfs/install/tex/latex/listings/lstlang1.sty
+File: lstlang1.sty 2024/09/23 1.10c listings language file
+) (/Users/user/Library/Application Support/MiKTeX/texmfs/install/tex/latex/listings/lstmisc.sty
+File: lstmisc.sty 2024/09/23 1.10c (Carsten Heinz)
+)
+Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on input line 270.
+
+
+[7]
+
+[8] (main.aux)
  ***********
 LaTeX2e <2025-06-01> patch level 1
 L3 programming layer <2025-07-19>
  ***********
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: 8AE6093ECB80CB5469E8AB51FC6B5C7D;1171.
+(rerunfilecheck)             Checksum: 7D9B0ED3EDE5DADDFBFD87507C04C17D;2129.
  ) 
 Here is how much of TeX's memory you used:
- 26628 strings out of 470090
- 488302 string characters out of 2480919
- 1281806 words of memory out of 3000000
- 54504 multiletter control sequences out of 15000+600000
- 644988 words of font info for 89 fonts, out of 8000000 for 9000
+ 26695 strings out of 470090
+ 489424 string characters out of 2480919
+ 1232330 words of memory out of 3000000
+ 54547 multiletter control sequences out of 15000+600000
+ 647447 words of font info for 94 fonts, out of 8000000 for 9000
  0 hyphenation exceptions out of 8191
- 84i,8n,91p,808b,2110s stack positions out of 5000i,500n,10000p,200000b,80000s
- </Users/user/Library/Application Support/MiKTeX/texmfs/data/fonts/pk/ljfour/jknappen/ec/dpi600/ectt1000.pk> </Users/user/Library/Application Support/MiKTeX/texmfs/data/fonts/pk/ljfour/jknappen/ec/dpi600/ecrm1000.pk> </Users/user/Library/Application Support/MiKTeX/texmfs/data/fonts/pk/ljfour/jknappen/ec/dpi600/ecti1095.pk> </Users/user/Library/Application Support/MiKTeX/texmfs/data/fonts/pk/ljfour/jknappen/ec/dpi600/tcrm1095.pk> </Users/user/Library/Application Support/MiKTeX/texmfs/data/fonts/pk/ljfour/jknappen/ec/dpi600/ecbx1440.pk> </Users/user/Library/Application Support/MiKTeX/texmfs/data/fonts/pk/ljfour/jknappen/ec/dpi600/ecbx2074.pk> </Users/user/Library/Application Support/MiKTeX/texmfs/data/fonts/pk/ljfour/jknappen/ec/dpi600/ecbx2488.pk> </Users/user/Library/Application Support/MiKTeX/texmfs/data/fonts/pk/ljfour/jknappen/ec/dpi600/ecrm1095.pk> </Users/user/Library/Application Support/MiKTeX/texmfs/data/fonts/pk/ljfour/jknappen/ec/dpi600/ecbx1095.pk> </Users/user/Library/Application Support/MiKTeX/texmfs/data/fonts/pk/ljfour/jknappen/ec/dpi600/ecrm1200.pk> </Users/user/Library/Application Support/MiKTeX/texmfs/data/fonts/pk/ljfour/jknappen/ec/dpi600/ecrm1728.pk></Users/user/Library/Application Support/MiKTeX/texmfs/install/fonts/type1/public/amsfonts/cm/cmmi10.pfb></Users/user/Library/Application Support/MiKTeX/texmfs/install/fonts/type1/public/amsfonts/cm/cmmi12.pfb></Users/user/Library/Application Support/MiKTeX/texmfs/install/fonts/type1/public/amsfonts/cm/cmr10.pfb></Users/user/Library/Application Support/MiKTeX/texmfs/install/fonts/type1/public/amsfonts/cm/cmr8.pfb>
-Output written on main.pdf (6 pages, 229413 bytes).
+ 84i,8n,91p,746b,2116s stack positions out of 5000i,500n,10000p,200000b,80000s
+ </Users/user/Library/Application Support/MiKTeX/texmfs/data/fonts/pk/ljfour/jknappen/ec/dpi600/ectt1000.pk> </Users/user/Library/Application Support/MiKTeX/texmfs/data/fonts/pk/ljfour/jknappen/ec/dpi600/ecrm1000.pk> </Users/user/Library/Application Support/MiKTeX/texmfs/data/fonts/pk/ljfour/jknappen/ec/dpi600/ecti1095.pk> </Users/user/Library/Application Support/MiKTeX/texmfs/data/fonts/pk/ljfour/jknappen/ec/dpi600/tcrm1095.pk> </Users/user/Library/Application Support/MiKTeX/texmfs/data/fonts/pk/ljfour/jknappen/ec/dpi600/ecbx1440.pk> </Users/user/Library/Application Support/MiKTeX/texmfs/data/fonts/pk/ljfour/jknappen/ec/dpi600/ecbx2074.pk> </Users/user/Library/Application Support/MiKTeX/texmfs/data/fonts/pk/ljfour/jknappen/ec/dpi600/ecbx2488.pk> </Users/user/Library/Application Support/MiKTeX/texmfs/data/fonts/pk/ljfour/jknappen/ec/dpi600/ecrm1095.pk> </Users/user/Library/Application Support/MiKTeX/texmfs/data/fonts/pk/ljfour/jknappen/ec/dpi600/ecbx1095.pk> </Users/user/Library/Application Support/MiKTeX/texmfs/data/fonts/pk/ljfour/jknappen/ec/dpi600/ecrm1200.pk> </Users/user/Library/Application Support/MiKTeX/texmfs/data/fonts/pk/ljfour/jknappen/ec/dpi600/ecrm1728.pk></Users/user/Library/Application Support/MiKTeX/texmfs/install/fonts/type1/public/amsfonts/cm/cmbx10.pfb></Users/user/Library/Application Support/MiKTeX/texmfs/install/fonts/type1/public/amsfonts/cm/cmex10.pfb></Users/user/Library/Application Support/MiKTeX/texmfs/install/fonts/type1/public/amsfonts/cm/cmmi10.pfb></Users/user/Library/Application Support/MiKTeX/texmfs/install/fonts/type1/public/amsfonts/cm/cmmi12.pfb></Users/user/Library/Application Support/MiKTeX/texmfs/install/fonts/type1/public/amsfonts/cm/cmmi8.pfb></Users/user/Library/Application Support/MiKTeX/texmfs/install/fonts/type1/public/amsfonts/cm/cmr10.pfb></Users/user/Library/Application Support/MiKTeX/texmfs/install/fonts/type1/public/amsfonts/cm/cmr8.pfb></Users/user/Library/Application Support/MiKTeX/texmfs/install/fonts/type1/public/amsfonts/cm/cmsy10.pfb></Users/user/Library/Application Support/MiKTeX/texmfs/install/fonts/type1/public/amsfonts/cm/cmsy8.pfb>
+Output written on main.pdf (10 pages, 390633 bytes).
 PDF statistics:
- 506 PDF objects out of 1000 (max. 8388607)
- 62 named destinations out of 1000 (max. 500000)
- 79 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 645 PDF objects out of 1000 (max. 8388607)
+ 81 named destinations out of 1000 (max. 500000)
+ 134 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -77,9 +77,8 @@
 \maketitle
 
 \begin{abstract}
-his report presents the numerical investigation of pollutant dispersion within a T-shaped building geometry, inspired by the benchmarks of Kikumoto and Ooka. The study utilizes Computational Fluid Dynamics (CFD) to analyze the transport of ethylene ($C_2H_4$) under transient wind conditions. A pressure-based solver with the PISO algorithm was employed to ensure mass conservation and stable convergence. The simulation accounts for a primary airflow of 1 m/s and a secondary pollutant source at 0.1 m/s. In this work, we visualized how the gas cloud moves and changes its shape inside the building over time. Our results show where the pollution accumulates most, which is important for understanding air quality in real city conditions.
+This report presents the numerical investigation of pollutant dispersion within a T-shaped building geometry, inspired by the benchmarks of Kikumoto and Ooka. The study utilizes Computational Fluid Dynamics (CFD) to analyze the transport of sulfur hexafluoride ($SF_6$) under transient wind conditions. ...
 \end{abstract}
-
 \tableofcontents
 \newpage
 
@@ -88,7 +87,8 @@ his report presents the numerical investigation of pollutant dispersion within a
 \chapter{Introduction}
 
 \section{Background and Motivation}
-Today, we spend most of our time inside buildings or in crowded cities. Because of this, knowing how dirty air or gas leaks move through a room is a big deal for safety. If a gas leak happens in a building with a complex shape, the air might get "trapped" in certain corners, creating dangerous zones. In this project, we study a T-shaped space between buildings to see how wind carries these pollutants and where they might get stuck.
+In modern urban environments, populations spend a significant portion of their time within complex architectural structures. Consequently, understanding the mechanisms of pollutant transport and gas leak propagation is critical for public safety and urban planning. In environments with complex geometries, such as T-shaped intersections or street canyons, aerodynamic "trapping" effects can occur. These stagnant zones lead to the accumulation of hazardous substances, creating localized high-concentration areas. This study evaluates the dispersion characteristics within a T-shaped building configuration to identify potential stagnation points and plume evolution behavior.
+
 
 \section{Problem Statement}
 The core of this research is based on the experimental and numerical benchmarks established by Hideki Kikumoto and Ryozo Ooka. We focus on a T-shaped building model where a primary airflow interacts with a secondary source of pollutant gas. In real-world scenarios, such configurations represent street canyons, industrial hallways, or complex ventilation ducts where stagnant zones can lead to dangerous concentrations of toxic gases.
@@ -145,11 +145,133 @@ The detailed dimensions of the computational domain and the nested subdomains ar
 \end{figure}
 
 
-\begin{lstlisting}[language=C, caption={udf}]
+\newpage
+\section{Computational Mesh}
+To achieve a balance between computational cost and spatial resolution, a hybrid hexa-dominant mesh was generated. The domain was discretized using a multi-zone approach, where the region surrounding the T-shaped building and the pollutant sources (the street canyon) was heavily refined to capture the complex flow physics and high concentration gradients.
+
+The mesh parameters are summarized as follows:
+\begin{itemize}
+    \item \textbf{Global Mesh Size:} $H/4.5 \approx 4$~m, ensuring a baseline resolution for the far-field flow.
+    \item \textbf{Refinement Zone (Sub-mesh):} Within the street canyon and near building surfaces, the element size was reduced to $H/9 \approx 2$~m.
+    \item \textbf{Boundary Layer Treatment:} To accurately resolve the viscous sublayer and pressure-driven separation at the building corners, 5 inflation layers were applied to all solid wall boundaries.
+    \item \textbf{Mesh Statistics:} The final discretized domain consists of approximately 591,495 nodes and 3,388,605 elements.
+\end{itemize}
+
+\bigskip
+
+\section{Mesh Quality Assessment}
+The accuracy and stability of the numerical solution are directly influenced by the quality of the computational mesh. In this study, three primary metrics were utilized to evaluate the mesh: Element Quality, Aspect Ratio, and Skewness.
+
+\begin{itemize}
+    \item \textbf{Element Quality:} This composite metric evaluates the shape of the element on a scale from 0 to 1, where 1 represents a perfect equilateral cell and 0 indicates a degenerate cell with zero or negative volume. For 3D elements, it is calculated based on the ratio of the volume to the square root of the cube of the sum of the square of the edge lengths. 
+    \item \textbf{Aspect Ratio:} Defined as the ratio of the longest edge length to the shortest edge length of an element. High aspect ratios can lead to numerical instability, particularly in regions with high flow gradients; however, values observed within the boundary layer (inflation layers) are within standard limits for the PISO solver.
+    \item \textbf{Skewness:} This metric measures how close an element is to its ideal equilateral form. A skewness of 0 represents an ideal cell, while values approaching 1 indicate highly distorted elements that may hinder convergence.
+\end{itemize}
+
+The statistical distribution of these metrics is illustrated in Figure 2.2. The mean values recorded—0.77 for Element Quality, 1.83 for Aspect Ratio, and 0.22 for Skewness—demonstrate a high-quality discretization suitable for transient species transport analysis.
+
+\newpage
+
+
+\begin{figure}[htbp]
+    \centering
+    \begin{subfigure}[b]{0.32\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{elem-quality.png}
+        \caption{Element Quality}
+        \label{fig:quality:element}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.32\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{aspect-ratio.png}
+        \caption{Aspect Ratio}
+        \label{fig:quality:aspect}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.32\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{skewness.png}
+        \caption{Skewness}
+        \label{fig:quality:skew}
+    \end{subfigure}
+    \caption{Mesh quality histograms: (a) Element Quality distribution (Mean: 0.77); (b) Aspect Ratio distribution (Mean: 1.83); (c) Skewness distribution (Mean: 0.22).}
+    \label{fig:mesh_metrics_histograms}
+\end{figure}
+
+The minimum orthogonal quality of $0.106$ and the maximum aspect ratio of $31.65$ (localized at the walls) ensure that the mesh is robust enough to handle the complex turbulent structures within the T-shaped geometry.
+
+The majority of elements maintain a skewness value below 0.25 and an aspect ratio near unity in the critical regions, which minimizes numerical diffusion during the transient species transport simulation.
+
+\chapter{Numerical Setup and Boundary Conditions}
+
+\section{Governing Equations}
+The fluid flow is governed by the 3D Unsteady Reynolds-Averaged Navier-Stokes (URANS) equations. The mass conservation and momentum equations are expressed as:
+
+\begin{equation}
+    \frac{\partial \rho}{\partial t} + \nabla \cdot (\rho \mathbf{u}) = 0
+\end{equation}
+
+\begin{equation}
+    \frac{\partial (\rho \mathbf{u})}{\partial t} + \nabla \cdot (\rho \mathbf{u} \mathbf{u}) = -\nabla p + \nabla \cdot (\tau) + \rho \mathbf{g}
+\end{equation}
+
+For the pollutant dispersion, a species transport model without chemical reactions was employed. The local mass fraction of the pollutant ($SF_6$), denoted as $Y_i$, is predicted through the solution of a convection-diffusion equation:
+
+\begin{equation}
+    \frac{\partial}{\partial t}(\rho Y_i) + \nabla \cdot (\rho \mathbf{u} Y_i) = -\nabla \cdot \mathbf{J}_i + S_i
+\end{equation}
+where $\mathbf{J}_i$ is the diffusion flux of the species.
+
+\section{Inlet Boundary Conditions and UDF}
+To simulate a realistic Atmospheric Boundary Layer (ABL), the inlet velocity, turbulent kinetic energy ($k$), and dissipation rate ($\varepsilon$) were prescribed using a User-Defined Function (UDF). The velocity profile follows a power law representing neutral atmospheric stability.
+
+The profiles are defined as:
+\begin{itemize}
+    \item \textbf{Inlet Velocity:} $u(z) = 4.7 \bigl( \frac{z}{18} \bigr)^{0.3}$, where 18 m is the reference height ($H$).
+    \item \textbf{Turbulent Kinetic Energy (k):} Derived from the friction velocity $u_* = 0.54$ m/s, accounting for the boundary layer depth $\delta = 144$ m.
+    \item \textbf{Dissipation Rate ($\varepsilon$):} Calculated to ensure an equilibrium ABL, preventing the decay of turbulence as the flow traverses the domain.
+\end{itemize}
+
+\newpage
+
+
+The inlet wind speed was assumed to follow a power law profile:
+
+\begin{equation}
+  u(z) = 4.7 \Bigl( \frac{z}{18} \Bigr)^{0.3} \text{ms}^{-1} 
+  \label{eq: Inlet wind speed}
+\end{equation}
+
+\bigskip
+
+Turbulent kinetic energy and dissipation rate profiles were specified as follows:
+
+\begin{equation}
+  k = \frac{u^2_*}{\sqrt{C_\mu}} \Bigl( 1 - \frac{z}{\delta} \Bigr)
+  \label{eq:Turbulent kinetic energy}
+\end{equation}
+
+and
+
+\begin{equation}
+  \varepsilon = \frac{u_*^3}{\kappa z}  \Bigl( 1 - \frac{z}{\delta} \Bigr)
+  \label{eq: Dissipation rate}
+\end{equation}
+
+\bigskip
+
+Where $\delta$ is the boundary layer depth ($= 144$ m), $u_* = 0.54$ m s$^{-1}$ is
+the friction velocity and  
+$\kappa$ is the von Karman constant (0.4), \ $C_\mu = 0.09$.
+
+\bigskip
+
+\begin{lstlisting}[language=C, caption={UDF}]
 #include "udf.h"
 
 #define U_STAR 0.54
-#define DELTA 0.5
+#define DELTA 144.0
 #define KAPPA 0.4
 #define CMU 0.09
 
@@ -160,8 +282,9 @@ DEFINE_PROFILE(velocity_inlet, thread, position)
   begin_f_loop(f, thread)
   {
     F_CENTROID(x, f, thread);
-    z = x[2];
-    F_PROFILE(f, thread, position) = 4.7 * pow(z / 0.12, 0.3);
+    z = x[2]; 
+    if (z < 0.01) z = 0.01;
+    F_PROFILE(f, thread, position) = 4.7 * pow(z / 18.0, 0.3);
   }
   end_f_loop(f, thread)
 }
@@ -174,6 +297,7 @@ DEFINE_PROFILE(k_profile, thread, position)
   {
     F_CENTROID(x, f, thread);
     z = x[2];
+    if (z > DELTA) z = DELTA;
     F_PROFILE(f, thread, position) = (pow(U_STAR, 2) / sqrt(CMU)) * (1.0 - z/DELTA);
   }
   end_f_loop(f, thread)
@@ -187,8 +311,9 @@ DEFINE_PROFILE(eps_profile, thread, position)
   {
     F_CENTROID(x, f, thread);
     z = x[2];
-    /* exception (z=0) */
-    if (z < 0.001) z = 0.001; 
+    if (z < 0.1) z = 0.1; 
+    if (z > DELTA) z = DELTA * 0.99;
+
     F_PROFILE(f, thread, position) = (pow(U_STAR, 3) / (KAPPA * z)) * (1.0 - z/DELTA);
   }
   end_f_loop(f, thread)
@@ -196,13 +321,6 @@ DEFINE_PROFILE(eps_profile, thread, position)
 \end{lstlisting}
 
 
-% MESH:
-% mesh size H/4.5 (4m)
-% sub mesh (element size) H/9 (2m)
-% nodes 591 495
-% elements 3 388 605
-% inflation: layers: 5
-% quality: element quality, aspect ratio, skewness (graphs)
 
 % SETUP:
 % Gravity: by Z-axis -9,81
@@ -214,10 +332,13 @@ DEFINE_PROFILE(eps_profile, thread, position)
 % Turbulent Schmidt Number: 0.7
 
 
+
 % Boundary conditions:
 % inlet: U_STAR = 0.54 m s^-1, DELTA = 0.5 m KAPPA (von Karman constant) = 0.4, Cmu = 0.09
 % pollution inlet: mass-flow-inlet: 0.00015 kg/s, turbulent intensity: 2%, turbulent viscosity ratio: 2.5
 % outlet: turbulent intensity: 5%, turbulent viscosity ratio: 10, Radial Equilibrium Pressure Dsitribution
+
+
 
 % Under relaxation factors:
 % Pressure 0.3
@@ -227,6 +348,9 @@ DEFINE_PROFILE(eps_profile, thread, position)
 % air 0.9
 % sf6 0.9
 % energy 1
+
+
+
 
 % Equations:
 % Flow
