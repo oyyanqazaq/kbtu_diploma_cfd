@@ -220,52 +220,46 @@ The fluid flow is governed by the steady-state 3D Reynolds-Averaged Navier-Stoke
 For the pollutant dispersion, a species transport model without chemical reactions was employed. The local mass fraction of the pollutant ($SF_6$), denoted as $Y_i$, is predicted through the solution of a convection-diffusion equation:
 
 \begin{equation}
-    \frac{\partial}{\partial t}(\rho Y_i) + \nabla \cdot (\rho \mathbf{u} Y_i) = -\nabla \cdot \mathbf{J}_i + S_i
+  \nabla \cdot (\rho \mathbf{u} Y_i) = -\nabla \cdot \mathbf{J}_i + S_i
 \end{equation}
 where $\mathbf{J}_i$ is the diffusion flux of the species.
 
 
-
-
-
-\section{Inlet Boundary Conditions and UDF}
-To simulate a realistic Atmospheric Boundary Layer (ABL), the inlet velocity, turbulent kinetic energy ($k$), and dissipation rate ($\varepsilon$) were prescribed using a User-Defined Function (UDF). The velocity profile follows a power law representing neutral atmospheric stability.
-
-The profiles are defined as:
+\section{Material Properties and Species Transport}
+The dispersion study involves a mixture of air and Sulfur hexafluoride ($SF_6$) as a tracer gas. To accurately simulate the buoyancy effects, the following properties were implemented:
 \begin{itemize}
-    \item \textbf{Inlet Velocity:} $u(z) = 4.7 \bigl( \frac{z}{18} \bigr)^{0.3}$, where 18 m is the reference height ($H$).
-    \item \textbf{Turbulent Kinetic Energy (k):} Derived from the friction velocity $u_* = 0.54$ m/s, accounting for the boundary layer depth $\delta = 144$ m.
-    \item \textbf{Dissipation Rate ($\varepsilon$):} Calculated to ensure an equilibrium ABL, preventing the decay of turbulence as the flow traverses the domain.
+    \item \textbf{Tracer Gas ($SF_6$):} The molecular weight is set to $146.06$ kg/kmol, making it approximately five times heavier than air[cite: 158]. The density is modeled using the ideal-gas law, and the viscosity is defined as $1.53 \times 10^{-5}$ Pa$\cdot$s.
+    \item \textbf{Mixture Properties:} The background air viscosity is $1.7894 \times 10^{-5}$ kg/m$\cdot$s. The mass diffusivity for the $SF_6$-air mixture is specified as $9.5 \times 10^{-6}$ m$^2$/s[cite: 319].
+    \item \textbf{Turbulent Schmidt Number:} Following the standard recommendations for atmospheric dispersion, the Turbulent Schmidt Number ($Sc_t$) is set to $0.7$[cite: 320].
 \end{itemize}
 
-\bigskip
-The inlet wind speed was assumed to follow a power law profile:
+\section{Boundary Conditions and UDF}
+To simulate a realistic Atmospheric Boundary Layer (ABL) under neutral stability conditions, the inlet velocity, turbulent kinetic energy ($k$), and dissipation rate ($\varepsilon$) were prescribed using a User-Defined Function (UDF). This approach ensures an equilibrium ABL, preventing the artificial decay of turbulence as the flow traverses the computational domain. The vertical profiles are defined by the following analytical expressions:
 
 \begin{equation}
-  u(z) = 4.7 \Bigl( \frac{z}{18} \Bigr)^{0.3} \text{ms}^{-1} 
-  \label{eq: Inlet wind speed}
+  u(z) = 4.7 \Bigl( \frac{z}{H} \Bigr)^{0.3}
+  \label{eq:inlet_velocity}
 \end{equation}
-
-\bigskip
-
-Turbulent kinetic energy and dissipation rate profiles were specified as follows:
 
 \begin{equation}
   k = \frac{u^2_*}{\sqrt{C_\mu}} \Bigl( 1 - \frac{z}{\delta} \Bigr)
-  \label{eq:Turbulent kinetic energy}
+  \label{eq:inlet_k}
 \end{equation}
 
 \begin{equation}
-  \varepsilon = \frac{u_*^3}{\kappa z}  \Bigl( 1 - \frac{z}{\delta} \Bigr)
-  \label{eq: Dissipation rate}
+  \varepsilon = \frac{u_*^3}{\kappa z} \Bigl( 1 - \frac{z}{\delta} \Bigr)
+  \label{eq:inlet_eps}
 \end{equation}
 
 \bigskip
-
-Where $\delta$ is the boundary layer depth ($= 144$ m), $u_* = 0.54$ m s$^{-1}$ is
-the friction velocity and  
-$\kappa$ is the von Karman constant (0.4), \ $C_\mu = 0.09$.
-
+\noindent Where the physical parameters and constants are defined as follows:
+\begin{itemize}
+    \item $H = 18$~m is the reference building height.
+    \item $\delta = 144$~m is the boundary layer depth, scaled to the full-size geometry.
+    \item $u_* = 0.54$~m/s is the friction velocity.
+    \item $\kappa = 0.4$ is the von Kármán constant.
+    \item $C_\mu = 0.09$ is the standard empirical constant for the $k-\epsilon$ model.
+\end{itemize}
 \bigskip
 
 \begin{lstlisting}[language=C, caption={UDF}]
@@ -321,7 +315,8 @@ DEFINE_PROFILE(eps_profile, thread, position)
 }
 \end{lstlisting}
 
-\section{Boundary Conditions}
+\bigskip
+
 The boundary conditions were defined to accurately replicate the atmospheric boundary layer and the specific pollutant emission source:
 
 \begin{itemize}
@@ -330,6 +325,22 @@ The boundary conditions were defined to accurately replicate the atmospheric bou
     \item \textbf{Outlet:} A \textit{pressure-outlet} was applied with a \textit{Radial Equilibrium Pressure Distribution} to account for the vertical pressure gradient. Backflow turbulence was set to $5\%$ intensity and a viscosity ratio of $10$.
     \item \textbf{Walls:} No-slip conditions were applied to all building and ground surfaces[cite: 168, 206].
 \end{itemize}
+
+
+
+
+
+\section{Solver Configuration}
+The numerical solution was obtained using the following settings in ANSYS Fluent:
+\begin{itemize}
+  \item \textbf{Solver Type:} Pressure-based steady-state solver[cite: 164, 274].
+  \item \textbf{Pressure-Velocity Coupling:} The SIMPLE algorithm was employed.
+  \item \textbf{Gravity:} Enabled in the negative Z-direction ($-9.81$ m/s$^2$) to account for the settling of the heavy tracer gas.
+  \item \textbf{Turbulence Model:} Standard $k-\epsilon$ with constants: $C_\mu = 0.09$, $C_{1\epsilon} = 1.44$, $C_{2\epsilon} = 1.92$[cite: 91].
+  \item \textbf{Discretization Schemes:} Second-Order Upwind for momentum, energy, and species transport to minimize numerical diffusion[cite: 275].
+\end{itemize}
+
+\newpage
 
 \section{Solver Stability and Convergence}
 To ensure stable convergence and prevent numerical oscillations during the steady-state iterations, the Under-Relaxation Factors (URF) were optimized. Higher values were assigned to the species and energy equations to prioritize their convergence after the flow field became partially developed.
@@ -353,23 +364,6 @@ To ensure stable convergence and prevent numerical oscillations during the stead
 \end{table}
 
 The solution was considered converged when the scaled residuals for all equations reached a threshold of $1 \times 10^{-5}$. In addition to residuals, the mass fraction of $SF_6$ at the outlet was monitored to ensure it reached a steady-state value.
-
-\section{Material Properties and Species Transport}
-The dispersion study involves a mixture of air and Sulfur hexafluoride ($SF_6$) as a tracer gas. To accurately simulate the buoyancy effects, the following properties were implemented:
-\begin{itemize}
-    \item \textbf{Tracer Gas ($SF_6$):} The molecular weight is set to $146.06$ kg/kmol, making it approximately five times heavier than air[cite: 158]. The density is modeled using the ideal-gas law, and the viscosity is defined as $1.53 \times 10^{-5}$ Pa$\cdot$s.
-    \item \textbf{Mixture Properties:} The background air viscosity is $1.7894 \times 10^{-5}$ kg/m$\cdot$s. The mass diffusivity for the $SF_6$-air mixture is specified as $9.5 \times 10^{-6}$ m$^2$/s[cite: 319].
-    \item \textbf{Turbulent Schmidt Number:} Following the standard recommendations for atmospheric dispersion, the Turbulent Schmidt Number ($Sc_t$) is set to $0.7$[cite: 320].
-\end{itemize}
-
-\section{Solver Configuration}
-The numerical solution was obtained using the following settings in ANSYS Fluent:
-\begin{itemize}
-    \item \textbf{Solver Type:} A pressure-based steady-state solver was employed[cite: 164, 274].
-    \item \textbf{Gravity:} Gravity was enabled in the negative Z-direction ($-9.81$ m/s$^2$) to account for the settling of the heavy tracer gas.
-    \item \textbf{Turbulence Model:} The standard $k-\epsilon$ model was used with the following constants: $C_\mu = 0.09$, $C_{1\epsilon} = 1.44$, and $C_{2\epsilon} = 1.92$[cite: 91].
-    \item \textbf{Discretization:} Second-Order Upwind schemes were applied for momentum and species transport to ensure higher accuracy and stability[cite: 275].
-\end{itemize}
 
 
 % Boundary conditions:
