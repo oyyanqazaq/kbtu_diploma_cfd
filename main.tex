@@ -64,7 +64,7 @@
 
 
 
-\title{Numerical Simulation of Pollutant Dispersion in a T-shaped Cavity using CFD Methods}
+\title{Numerical Simulation of Atmospheric Pollutant Dispersion in an Urban Street Canyon Using CFD Methods}
 \author{}
 \date{\today}
 
@@ -77,33 +77,31 @@
 \maketitle
 
 \begin{abstract}
-This report presents the numerical investigation of pollutant dispersion within a T-shaped building geometry, inspired by the benchmarks of Kikumoto and Ooka. The study utilizes Computational Fluid Dynamics (CFD) to analyze the transport of sulfur hexafluoride ($SF_6$) under transient wind conditions. ...
+This report presents a numerical investigation of atmospheric pollutant dispersion in an idealized urban street canyon using Computational Fluid Dynamics (CFD). The study is based on a reference street-canyon benchmark and focuses on the transport of sulfur hexafluoride ($SF_6$) under steady approaching wind conditions. A steady-state Reynolds-Averaged Navier-Stokes (RANS) framework with species transport is used to simulate the airflow and pollutant concentration field. The geometry, mesh strategy, governing equations, boundary conditions, and User-Defined Functions (UDFs) are described in detail. The main objective is to identify the concentration distribution and possible pollutant accumulation zones within the canyon.
 \end{abstract}
+
 \tableofcontents
 \newpage
-
 
 
 \chapter{Introduction}
 
 \section{Background and Motivation}
-In modern urban environments, populations spend a significant portion of their time within complex architectural structures. Consequently, understanding the mechanisms of pollutant transport and gas leak propagation is critical for public safety and urban planning. In environments with complex geometries, such as T-shaped intersections or street canyons, aerodynamic "trapping" effects can occur. These stagnant zones lead to the accumulation of hazardous substances, creating localized high-concentration areas. This study evaluates the dispersion characteristics within a T-shaped building configuration to identify potential stagnation points and plume evolution behavior.
-
+Air pollution in urban areas is an important problem for public safety and urban planning. In street canyons, the interaction between wind and buildings can reduce natural ventilation and create recirculation zones. As a result, pollutants may accumulate near pedestrian level and remain trapped for a long time in weakly ventilated regions. This makes street canyons one of the most important urban configurations for dispersion studies. Therefore, numerical simulation is useful for understanding pollutant transport and identifying poorly ventilated regions.
 
 \section{Problem Statement}
-The core of this research is based on the experimental and numerical benchmarks established by Hideki Kikumoto and Ryozo Ooka. We focus on a T-shaped building model where a primary airflow interacts with a secondary source of pollutant gas. In real-world scenarios, such configurations represent street canyons, industrial hallways, or complex ventilation ducts where stagnant zones can lead to dangerous concentrations of toxic gases.
+This study considers an idealized urban street canyon with aspect ratio $W/H = 1$, where both the street width and building height are equal to 18~m. The configuration is based on a benchmark previously studied in wind-tunnel and CFD investigations. Sulfur hexafluoride ($SF_6$) is released at street level and transported by an approaching atmospheric boundary layer flow. The main goal is to analyze the airflow pattern and pollutant concentration distribution inside the canyon under steady inflow conditions. Special attention is given to the recirculation structure inside the canyon, since it strongly affects pollutant removal and accumulation.
 
-\section{Sulfur hexafluoride ($SF_6$) as a Pollutant}
-In our simulation, we chose Sulfur hexafluoride as the gas that leaks into the urban area. Sulfur hexafluoride ($SF_6$) is a colorless, odorless, non-toxic, and extremely stable synthetic gas. It is also known as the world's most potent greenhouse gas, with a global warming potential 23 500 times greater than ($CO_2$)
-and an atmospheric lifetime exceeding 1 000 years. Our goal was to see how this gas moves through the building when a steady wind blows. By watching how its concentration changes, we can identify which parts of the area become dangerous first.
+\section{Sulfur Hexafluoride ($SF_6$) as a Tracer Gas}
+In this work, sulfur hexafluoride ($SF_6$) is used as a tracer gas for pollutant dispersion modeling. It is released from street-level line sources that represent traffic-related emissions. This gas is widely used in dispersion studies because it allows researchers to track the transport of pollutants under controlled conditions. By analyzing the concentration field of $SF_6$, it is possible to evaluate ventilation performance and identify regions where pollutants tend to accumulate.
 
 \section{Objectives}
 The main objectives of this study are:
 \begin{itemize}
-    \item To design urban area's 3D geometry.
-    \item To implement Computational Fluid Dynamics (CFD) setup in ANSYS Fluent capable of handling transient species transport.
-    \item To optimize numerical parameters to ensure high precision convergence.
-    \item To visualize the evolution of the pollutant plume and identify areas of high accumulation.
+    \item to construct the 3D geometry of the urban street canyon;
+    \item to implement a CFD setup in ANSYS Fluent for steady-state airflow and species transport;
+    \item to define suitable boundary conditions for the approaching flow and pollutant release;
+    \item to analyze the pollutant concentration distribution and identify accumulation zones.
 \end{itemize}
 
 \chapter{Geometry and Mesh}
@@ -118,9 +116,9 @@ The first phase of the project involved the construction of a 3D model represent
 
 \begin{itemize}
     \item \textbf{Main Air Inlet:} A velocity-inlet profile representing the atmospheric boundary layer.
-    \item \textbf{Outlet:} A zero-static pressure outlet to allow for fully developed flow.
-    \item \textbf{Pollutant Sources:} Two parallel line sources located at the ground level between the buildings to simulate vehicular emissions ($SF_6$). Each source has a width of $0.12H$ and extends beyond the building length by 10\% to minimize boundary interference.
-\end{itemize}
+    \item \textbf{Outlet:} A pressure-outlet boundary condition with radial equilibrium pressure distribution was applied to allow the flow to leave the computational domain.
+    \item \textbf{Pollutant Sources:} In this study, two line sources were used as a simplified representation of the benchmark traffic-emission configuration.
+  \end{itemize}
 
 The detailed dimensions of the computational domain and the nested subdomains are illustrated in Figure 2.1.
 
@@ -147,9 +145,9 @@ The detailed dimensions of the computational domain and the nested subdomains ar
 
 \newpage
 \section{Computational Mesh}
-To achieve a balance between computational cost and spatial resolution, a hybrid hexa-dominant mesh was generated. The domain was discretized using a multi-zone approach, where the region surrounding the T-shaped building and the pollutant sources (the street canyon) was heavily refined to capture the complex flow physics and high concentration gradients.
-
+To achieve a balance between computational cost and spatial resolution, a hybrid hexa-dominant mesh was generated. The domain was discretized using a multi-zone approach, in which the region surrounding the street canyon and the pollutant sources was heavily refined.
 The mesh parameters are summarized as follows:
+
 \begin{itemize}
     \item \textbf{Global Mesh Size:} $H/4.5 \approx 4$~m, ensuring a baseline resolution for the far-field flow.
     \item \textbf{Refinement Zone (Sub-mesh):} Within the street canyon and near building surfaces, the element size was reduced to $H/9 \approx 2$~m.
@@ -164,11 +162,11 @@ The accuracy and stability of the numerical solution are directly influenced by 
 
 \begin{itemize}
     \item \textbf{Element Quality:} This composite metric evaluates the shape of the element on a scale from 0 to 1, where 1 represents a perfect equilateral cell and 0 indicates a degenerate cell with zero or negative volume. For 3D elements, it is calculated based on the ratio of the volume to the square root of the cube of the sum of the square of the edge lengths. 
-    \item \textbf{Aspect Ratio:} Defined as the ratio of the longest edge length to the shortest edge length of an element. High aspect ratios can lead to numerical instability, particularly in regions with high flow gradients; however, values observed within the boundary layer (inflation layers) are within standard limits for the PISO solver.
+    \item \textbf{Aspect Ratio:} Defined as the ratio of the longest edge length to the shortest edge length of an element. High aspect ratios can lead to numerical instability, particularly in regions with high flow gradients; however, values observed within the boundary layer (inflation layers) remain acceptable for the selected numerical setup.
     \item \textbf{Skewness:} This metric measures how close an element is to its ideal equilateral form. A skewness of 0 represents an ideal cell, while values approaching 1 indicate highly distorted elements that may hinder convergence.
 \end{itemize}
 
-The statistical distribution of these metrics is illustrated in Figure 2.2. The mean values recorded—0.77 for Element Quality, 1.83 for Aspect Ratio, and 0.22 for Skewness—demonstrate a high-quality discretization suitable for transient species transport analysis.
+The statistical distribution of these metrics is illustrated in Figure 2.2. The mean values recorded—0.77 for Element Quality, 1.83 for Aspect Ratio, and 0.22 for Skewness—demonstrate a high-quality discretization suitable for steady species transport analysis.
 
 \newpage
 
@@ -199,10 +197,9 @@ The statistical distribution of these metrics is illustrated in Figure 2.2. The 
     \label{fig:mesh_metrics_histograms}
 \end{figure}
 
-The minimum orthogonal quality of $0.106$ and the maximum aspect ratio of $31.65$ (localized at the walls) ensure that the mesh is robust enough to handle the complex turbulent structures within the T-shaped geometry.
+The statistical distributions of Element Quality, Aspect Ratio, and Skewness are illustrated in Figure 2.2. The corresponding mean values are 0.77, 1.83, and 0.22, respectively, indicating good overall mesh quality.
 
-The majority of elements maintain a skewness value below 0.25 and an aspect ratio near unity in the critical regions, which minimizes numerical diffusion during the transient species transport simulation.
-
+Although the maximum aspect ratio reaches 31.65 near the walls due to the boundary-layer inflation layers, these extreme values are highly localized. In the critical flow region, most elements retain low skewness and acceptable shape characteristics, which helps reduce numerical diffusion during the steady species transport simulation.
 \chapter{Numerical Setup and Boundary Conditions}
 
 \section{Governing Equations}
@@ -228,9 +225,9 @@ where $\mathbf{J}_i$ is the diffusion flux of the species.
 \section{Material Properties and Species Transport}
 The dispersion study involves a mixture of air and Sulfur hexafluoride ($SF_6$) as a tracer gas. To accurately simulate the buoyancy effects, the following properties were implemented:
 \begin{itemize}
-    \item \textbf{Tracer Gas ($SF_6$):} The molecular weight is set to $146.06$ kg/kmol, making it approximately five times heavier than air[cite: 158]. The density is modeled using the ideal-gas law, and the viscosity is defined as $1.53 \times 10^{-5}$ Pa$\cdot$s.
-    \item \textbf{Mixture Properties:} The background air viscosity is $1.7894 \times 10^{-5}$ kg/m$\cdot$s. The mass diffusivity for the $SF_6$-air mixture is specified as $9.5 \times 10^{-6}$ m$^2$/s[cite: 319].
-    \item \textbf{Turbulent Schmidt Number:} Following the standard recommendations for atmospheric dispersion, the Turbulent Schmidt Number ($Sc_t$) is set to $0.7$[cite: 320].
+    \item \textbf{Tracer Gas ($SF_6$):} The molecular weight is set to $146.06$ kg/kmol, making it approximately five times heavier than air. The density is modeled using the ideal-gas law, and the viscosity is defined as $1.53 \times 10^{-5}$ Pa$\cdot$s.
+    \item \textbf{Mixture Properties:} The background air viscosity is $1.7894 \times 10^{-5}$ kg/m$\cdot$s. The mass diffusivity for the $SF_6$-air mixture is specified as $9.5 \times 10^{-6}$ m$^2$/s.
+    \item \textbf{Turbulent Schmidt Number:} Following the standard recommendations for atmospheric dispersion, the Turbulent Schmidt Number ($Sc_t$) is set to $0.7$.
 \end{itemize}
 
 \section{Boundary Conditions and UDF}
@@ -258,7 +255,7 @@ To simulate a realistic Atmospheric Boundary Layer (ABL) under neutral stability
     \item $\delta = 144$~m is the boundary layer depth, scaled to the full-size geometry.
     \item $u_* = 0.54$~m/s is the friction velocity.
     \item $\kappa = 0.4$ is the von Kármán constant.
-    \item $C_\mu = 0.09$ is the standard empirical constant for the $k-\epsilon$ model.
+    \item $C_\mu = 0.09$ is the standard empirical constant for the $k-\varepsilon$ model.
 \end{itemize}
 \bigskip
 
@@ -320,10 +317,10 @@ DEFINE_PROFILE(eps_profile, thread, position)
 The boundary conditions were defined to accurately replicate the atmospheric boundary layer and the specific pollutant emission source:
 
 \begin{itemize}
-    \item \textbf{Main Inlet:} A velocity-inlet profile implemented via UDF with $u_* = 0.54$ m/s and a boundary layer depth $\delta = 144$ m (scaled to full-size geometry)[cite: 181].
+    \item \textbf{Main Inlet:} A velocity-inlet profile implemented via UDF with $u_* = 0.54$ m/s and a boundary layer depth $\delta = 144$ m (scaled to full-size geometry).
     \item \textbf{Pollution Source:} A \textit{mass-flow-inlet} was used for the $SF_6$ release with a rate of $0.00015$ kg/s. The turbulence parameters at the source were set to a $2\%$ intensity and a turbulent viscosity ratio of $2.5$.
-    \item \textbf{Outlet:} A \textit{pressure-outlet} was applied with a \textit{Radial Equilibrium Pressure Distribution} to account for the vertical pressure gradient. Backflow turbulence was set to $5\%$ intensity and a viscosity ratio of $10$.
-    \item \textbf{Walls:} No-slip conditions were applied to all building and ground surfaces[cite: 168, 206].
+   \item \textbf{Outlet:} A pressure-outlet boundary condition with radial equilibrium pressure distribution was applied to allow the flow to leave the computational domain.
+    \item \textbf{Walls:} No-slip conditions were applied to all building and ground surfaces.
 \end{itemize}
 
 
@@ -333,11 +330,11 @@ The boundary conditions were defined to accurately replicate the atmospheric bou
 \section{Solver Configuration}
 The numerical solution was obtained using the following settings in ANSYS Fluent:
 \begin{itemize}
-  \item \textbf{Solver Type:} Pressure-based steady-state solver[cite: 164, 274].
-  \item \textbf{Pressure-Velocity Coupling:} The SIMPLE algorithm was employed.
-  \item \textbf{Gravity:} Enabled in the negative Z-direction ($-9.81$ m/s$^2$) to account for the settling of the heavy tracer gas.
-  \item \textbf{Turbulence Model:} Standard $k-\epsilon$ with constants: $C_\mu = 0.09$, $C_{1\epsilon} = 1.44$, $C_{2\epsilon} = 1.92$[cite: 91].
-  \item \textbf{Discretization Schemes:} Second-Order Upwind for momentum, energy, and species transport to minimize numerical diffusion[cite: 275].
+  \item \textbf{Solver Type:} Pressure-based steady-state solver.
+\item \textbf{Pressure-Velocity Coupling:} SIMPLE.
+\item \textbf{Gravity:} Enabled in the negative Z-direction ($-9.81$~m/s$^2$).
+\item \textbf{Turbulence Model:} Standard $k-\varepsilon$ model with $C_\mu = 0.09$, $C_{1\varepsilon} = 1.44$, and $C_{2\varepsilon} = 1.92$.
+\item \textbf{Discretization Schemes:} Second-order upwind for momentum and species transport.
 \end{itemize}
 
 \newpage
