@@ -55,11 +55,9 @@
 
 \usepackage{titlesec}
 
-% Настройка команды \chapter
 \titleformat{\chapter}[display]
   {\normalfont\huge\bfseries}{\chaptertitlename\ \thechapter}{20pt}{\Huge}
-  
-% Управление отступами: {левый}{перед}{после}
+
 \titlespacing*{\chapter}{0pt}{-20pt}{30pt}
 
 
@@ -77,7 +75,11 @@
 \maketitle
 
 \begin{abstract}
-This report presents a numerical investigation of atmospheric pollutant dispersion in an idealized urban street canyon using Computational Fluid Dynamics (CFD). The study is based on a reference street-canyon benchmark and focuses on the transport of sulfur hexafluoride ($SF_6$) under steady approaching wind conditions. A steady-state Reynolds-Averaged Navier-Stokes (RANS) framework with species transport is used to simulate the airflow and pollutant concentration field. The geometry, mesh strategy, governing equations, boundary conditions, and User-Defined Functions (UDFs) are described in detail. The main objective is to identify the concentration distribution and possible pollutant accumulation zones within the canyon.
+This report presents numerical investigation of atmospheric pollutant dispersion within an idealized urban street canyon, validated against the benchmark study by Salim (2011). The study focuses on the transport of sulfur hexafluoride ($SF_6$) under perpendicular approaching wind conditions. Calculations are performed using the steady state Reynolds Averaged Navier Stokes (RANS) framework coupled with the advection diffusion method for species transport. 
+
+Two turbulence closure models are evaluated and compared: the Standard $k_\epsilon$ and the $k_\omega$ Shear Stress Transport (SST) model. To accurately replicate the atmospheric boundary layer, User Defined Functions (UDFs) were implemented to describe vertical inlet profiles for mean velocity, as well as profiles for turbulent kinetic energy ($k$) and specific dissipation rate ($\omega$).
+
+The comparative analysis identifies distinct differences between the two RANS models in predicting structure of vortices and the resulting pollutant accumulation zones near the leeward, windward walls (Wall A, Wall B).
 \end{abstract}
 
 \tableofcontents
@@ -87,40 +89,50 @@ This report presents a numerical investigation of atmospheric pollutant dispersi
 \chapter{Introduction}
 
 \section{Background and Motivation}
-Air pollution in urban areas is an important problem for public safety and urban planning. In street canyons, the interaction between wind and buildings can reduce natural ventilation and create recirculation zones. As a result, pollutants may accumulate near pedestrian level and remain trapped for a long time in weakly ventilated regions. This makes street canyons one of the most important urban configurations for dispersion studies. Therefore, numerical simulation is useful for understanding pollutant transport and identifying poorly ventilated regions.
+Air pollution in urban environments remains a critical challenge for health, safety, and sustainable urban planning. Within idealized street canyons, the complex interaction between the atmospheric boundary layer and building geometries significantly alters local flow patterns, often reduces natural ventilation. In these canyons, the wind often forms large, stable rotating vortices. These vortices act like a trap, preventing fresh air from entering and causing pollutants to accumulate at the ground level where people breathe. Because of this limited ventilation, gas concentrations can reach dangerously high levels near the street surface.
+
+Understanding these mechanisms is essential, as poorly ventilated places pose a direct risk to inhabitants. While experimental wind tunnel studies provide high quality data, Computational Fluid Dynamics (CFD) offers a cost effective and detailed alternative for analyzing transport of pollutant gases, such as sulfur hexafluoride ($SF_6$).
+
+In this study, the motivation lies on evaluating predictive capabilities of the steady state Reynolds Averaged Navier Stokes (RANS) framework. Specifically, the performance of the Standard $k_\epsilon$ model is compared against $k_\omega$ Shear Stress Transport (SST) model. By implementing specific User Defined Functions (UDFs) to replicate the benchmark conditions of Salim (2011).
+
+The primary motivation for this study is to perform validation of the numerical setup against the wind tunnel experiments of Salim et al. (2011). By matching these experimental results, we ensure that the chosen mesh strategy, turbulence models ($k_\epsilon$ and $k_\omega$ SST), and boundary conditions accurately represent physical reality. This validation serves as a necessary guarantee, providing a reliable and proven CFD framework that will be applied to more complex urban geometries in future research.
 
 \section{Problem Statement}
-This study considers an idealized urban street canyon with aspect ratio $W/H = 1$, where both the street width and building height are equal to 18~m. The configuration is based on a benchmark previously studied in wind-tunnel and CFD investigations. Sulfur hexafluoride ($SF_6$) is released at street level and transported by an approaching atmospheric boundary layer flow. The main goal is to analyze the airflow pattern and pollutant concentration distribution inside the canyon under steady inflow conditions. Special attention is given to the recirculation structure inside the canyon, since it strongly affects pollutant removal and accumulation.
+This study considers an idealized urban street canyon with an aspect ratio of $W/H = 1$, where both the street width ($W$) and building height ($H$) are set to 18m. This configuration is based on the 1:150 scale wind tunnel benchmark by Salim et al. (2011).
 
-\section{Sulfur Hexafluoride ($SF_6$) as a Tracer Gas}
+The pollutant, sulfur hexafluoride ($SF_6$), is released from a ground level line source with a length of 216 m ($12H$) and is transported by a steady atmospheric boundary layer flow. The primary objective is to evaluate the accuracy of the RANS numerical setup by comparing the predicted flow patterns and pollutant concentration fields with the experimental data.
+
+\section{Sulfur Hexafluoride ($SF_6$) as a Pollutant Gas}
 In this work, sulfur hexafluoride ($SF_6$) is used as a tracer gas for pollutant dispersion modeling. It is released from street-level line sources that represent traffic-related emissions. This gas is widely used in dispersion studies because it allows researchers to track the transport of pollutants under controlled conditions. By analyzing the concentration field of $SF_6$, it is possible to evaluate ventilation performance and identify regions where pollutants tend to accumulate.
 
 \section{Objectives}
-The main objectives of this study are:
+The primary goal of this research is to establish a validated CFD framework for urban dispersion studies. The specific objectives are:
 \begin{itemize}
-    \item to construct the 3D geometry of the urban street canyon;
-    \item to implement a CFD setup in ANSYS Fluent for steady-state airflow and species transport;
-    \item to define suitable boundary conditions for the approaching flow and pollutant release;
-    \item to analyze the pollutant concentration distribution and identify accumulation zones.
+    \item To construct a 3D geometry of an idealized urban street canyon with a full-scale aspect ratio ($W/H = 1$);
+    \item To implement a robust CFD setup in ANSYS Fluent for steady state RANS simulations, integrating species transport for pollutant gas;
+    \item To define realistic atmospheric boundary layer conditions using User Defined Functions (UDFs) for velocity, $k$, $\epsilon$, and $\omega$ profiles;
+    \item To compare  Standard $k_\epsilon$ and $k_\omega$ SST turbulence models;
+    \item To validate the numerical results against the experimental data of Salim (2011) to ensure the physical accuracy of the model;
+    \item To identify pollutant accumulation zones.
 \end{itemize}
 
 \chapter{Geometry and Mesh}
 
 \section{Geometry and Computational Domain}
 
-The numerical investigation is based on an idealized Urban Street Canyon (USC) configuration. The geometry is defined by a unity aspect ratio, where the street width ($W$) and building height ($H$) are both set to 18~m ($W/H = 1$). This specific configuration was chosen to maintain consistency with the experimental wind-tunnel (WT) data provided by the University of Karlsruhe, Germany. 
+The numerical investigation is based on an idealized Urban Street Canyon (USC) configuration. The geometry is defined by a unity aspect ratio, where the street width ($W$) and building height ($H$) are both set to 18 m ($W/H = 1$). While the original experimental wind tunnel (WT) data from the University of Karlsruhe used a 1:150 scale ($H = 0.12$~m).
 
-The validation of the current numerical model relies on the comparison between computational results and concentration measurements available in the public scientific database, as discussed in previous studies comparing \textit{Reynolds-Averaged Navier-Stokes} (RANS) and \textit{Large Eddy Simulation} (LES) approaches for atmospheric pollutant dispersion.
-
-The first phase of the project involved the construction of a 3D model representing the street canyon area. The flow domain and its respective boundary conditions are defined as follows:
+The flow domain and its respective boundary conditions are defined as follows:
 
 \begin{itemize}
-    \item \textbf{Main Air Inlet:} A velocity-inlet profile representing the atmospheric boundary layer.
-    \item \textbf{Outlet:} A pressure-outlet boundary condition with radial equilibrium pressure distribution was applied to allow the flow to leave the computational domain.
-    \item \textbf{Pollutant Sources:} In this study, two line sources were used as a simplified representation of the benchmark traffic-emission configuration.
-  \end{itemize}
+    \item \textbf{Main Air Inlet:} Located at $8H$ upstream of the first building.
+    \item \textbf{Outlet:} Located at $19H$ downstream to allow for full wake development.
+    \item \textbf{Upper Boundary (Top):} A symmetry boundary condition (zero shear slip) was applied at a height of $8H$ from the floor.
+    \item \textbf{Sides:} Symmetry conditions were applied to the lateral boundaries, located at a distance of $7H$ from the building edges.
+    \item \textbf{Pollutant Sources:} Two line sources, each 216m ($12H$) in length, were placed at the canyon floor to represent traffic emissions, consistent with SF$_6$.
+\end{itemize}
 
-The detailed dimensions of the computational domain and the nested subdomains are illustrated in Figure 2.1.
+The detailed dimensions of the computational domain and the nested subdomains, designed for mesh refinement around the canyon, are illustrated in Figure 2.1.
 
 \begin{figure}[htbp]
     \centering
@@ -134,14 +146,13 @@ The detailed dimensions of the computational domain and the nested subdomains ar
     \begin{subfigure}[b]{0.48\textwidth}
         \centering
         \includegraphics[width=\textwidth]{images/subdomain_setup.png}
-        \caption{subdomain }
+        \caption{Side view of the canyon and subdomains}
         \label{fig:domain:side}
     \end{subfigure}
 
     \caption{Computational domain setup: (a) layout and subdomains; (b) applied boundary conditions and line source locations.}
     \label{fig:domain_full}
 \end{figure}
-
 
 \newpage
 \section{Computational Mesh}
@@ -200,6 +211,26 @@ The statistical distribution of these metrics is illustrated in Figure 2.2. The 
 The statistical distributions of Element Quality, Aspect Ratio, and Skewness are illustrated in Figure 2.2. The corresponding mean values are 0.77, 1.83, and 0.22, respectively, indicating good overall mesh quality.
 
 Although the maximum aspect ratio reaches 31.65 near the walls due to the boundary-layer inflation layers, these extreme values are highly localized. In the critical flow region, most elements retain low skewness and acceptable shape characteristics, which helps reduce numerical diffusion during the steady species transport simulation.
+\begin{figure}[htbp]
+    \centering
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/mesh_3.png}
+        \caption{Top view}
+        \label{fig:domain:top}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/mesh_2.png}
+        \caption{Side view }
+        \label{fig:domain:side}
+    \end{subfigure}
+
+    \caption{Cross-sectional views of the computational mesh: (a) Horizontal plane (top view) (b) Vertical plane (side view)}
+    \label{fig:domain_full}
+\end{figure}
+
 \chapter{Numerical Setup and Boundary Conditions}
 
 \section{Governing Equations}
@@ -248,13 +279,18 @@ To simulate a realistic Atmospheric Boundary Layer (ABL) under neutral stability
   \label{eq:inlet_eps}
 \end{equation}
 
+\begin{equation}
+\omega = \frac{\varepsilon}{C_\mu k} = \frac{u_*}{\kappa \sqrt{C_\mu} z}
+\label{eq:inlet_omega}
+\end{equation}
+
 \bigskip
 \noindent Where the physical parameters and constants are defined as follows:
 \begin{itemize}
     \item $H = 18$~m is the reference building height.
     \item $\delta = 144$~m is the boundary layer depth, scaled to the full-size geometry.
     \item $u_* = 0.54$~m/s is the friction velocity.
-    \item $\kappa = 0.4$ is the von Kármán constant.
+    \item $\kappa = 0.4$ is the von Karman constant.
     \item $C_\mu = 0.09$ is the standard empirical constant for the $k-\varepsilon$ model.
 \end{itemize}
 \bigskip
@@ -310,6 +346,22 @@ DEFINE_PROFILE(eps_profile, thread, position)
   }
   end_f_loop(f, thread)
 }
+
+DEFINE_PROFILE(omega_profile, thread, index)
+{
+    real x[ND_ND];
+    real z;
+    face_t f;
+
+    begin_f_loop(f, thread)
+    {
+        F_CENTROID(x, f, thread);
+        z = x[2];
+        
+        F_PROFILE(f, thread, index) = U_STAR / (KARMAN * sqrt(CMU) * (z + 0.0033)); 
+    }
+    end_f_loop(f, thread)
+}
 \end{lstlisting}
 
 \bigskip
@@ -318,7 +370,7 @@ The boundary conditions were defined to accurately replicate the atmospheric bou
 
 \begin{itemize}
     \item \textbf{Main Inlet:} A velocity-inlet profile implemented via UDF with $u_* = 0.54$ m/s and a boundary layer depth $\delta = 144$ m (scaled to full-size geometry).
-    \item \textbf{Pollution Source:} A \textit{mass-flow-inlet} was used for the $SF_6$ release with a rate of $0.00015$ kg/s. The turbulence parameters at the source were set to a $2\%$ intensity and a turbulent viscosity ratio of $2.5$.
+    \item \textbf{Pollution Source:} A \textit{mass-flow-inlet} was used for the $SF_6$ release with a rate of $0.01$ kg/s. The turbulence parameters at the source were set to a $2\%$ intensity and a turbulent viscosity ratio of $2.5$.
    \item \textbf{Outlet:} A pressure-outlet boundary condition with radial equilibrium pressure distribution was applied to allow the flow to leave the computational domain.
     \item \textbf{Walls:} No-slip conditions were applied to all building and ground surfaces.
 \end{itemize}
@@ -332,10 +384,24 @@ The numerical solution was obtained using the following settings in ANSYS Fluent
 \begin{itemize}
   \item \textbf{Solver Type:} Pressure-based steady-state solver.
 \item \textbf{Pressure-Velocity Coupling:} SIMPLE.
-\item \textbf{Gravity:} Enabled in the negative Z-direction ($-9.81$~m/s$^2$).
+\item \textbf{Gravity:} Enabled in the negative Z direction ($-9.81$ m/s$^2$).
 \item \textbf{Turbulence Model:} Standard $k-\varepsilon$ model with $C_\mu = 0.09$, $C_{1\varepsilon} = 1.44$, and $C_{2\varepsilon} = 1.92$.
 \item \textbf{Discretization Schemes:} Second-order upwind for momentum and species transport.
 \end{itemize}
+
+The numerical solution for the $k_omega$ SST model was obtained using the following settings in ANSYS Fluent to ensure superior capturing of flow separation and near-wall gradients:
+\begin{itemize}
+  \item \textbf{Solver Type:} Pressure-based, steady-state, implicit solver.
+  \item \textbf{Pressure-Velocity Coupling:} \textit{Coupled} (or \textit{SIMPLEC}) scheme was employed to enhance pressure-velocity stability in the complex wake regions of the urban canopy.
+  \item \textbf{Turbulence Model:} $k-\omega$ Shear Stress Transport (SST).
+  \item \textbf{Turbulence Constants:} Standard SST closure coefficients were applied ($\beta^*_{i} = 0.09$, $\alpha_1 = 5/9$, $\beta_1 = 0.075$).
+  \item \textbf{Discretization Schemes:}\begin{itemize}
+  \item \textbf{Pressure:} Second-order.
+  \item \textbf{Momentum:} Second-order upwind
+  \item \textbf{Turbulent Kinetic Energy ($k$):} Second-order upwind.
+  \item \textbf{Specific Dissipation Rate ($\omega$):} Second-order upwind.
+  \item \textbf{Species Transport:} Second-order upwind for high-fidelity pollutant distribution.\end{itemize}
+\item \textbf{Convergence Monitoring:} A convergence threshold of $10^{-5}$ for all residuals was enforced. Additionally, the mass fraction of $SF_6$ at key monitoring points was tracked to ensure the solution reached a stable plateau.\end{itemize}
 
 \newpage
 
@@ -363,23 +429,139 @@ To ensure stable convergence and prevent numerical oscillations during the stead
 The solution was considered converged when the scaled residuals for all equations reached a threshold of $1 \times 10^{-5}$. In addition to residuals, the mass fraction of $SF_6$ at the outlet was monitored to ensure it reached a steady-state value.
 
 \chapter{Results}
-\section{Flow Field in the Street Canyon}
+\section{Convergence graphs}
+\begin{figure}[htbp]
+    \centering
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/k_epsilon.png}
+        \caption{Standard $k-\varepsilon$ model}
+        \label{fig:conv:k_eps}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/k_omega.png}
+        \caption{$k-\omega$ SST model}
+        \label{fig:conv:k_omega}
+    \end{subfigure}
 
-\textbf{Sample: } The airflow inside the street canyon is characterized by a dominant recirculation vortex. Due to the interaction between the approaching wind and the building geometry, the flow rotates inside the canyon and redistributes the pollutant released at street level. This recirculation structure plays a key role in pollutant transport and strongly influences the concentration field near the walls.
+    \caption{Residual convergence history for the two turbulence models: (a) stable decline of residuals for $k-\varepsilon$; (b) convergence behavior for the $k-\omega$ SST model.}
+    \label{fig:convergence_all}
+  \end{figure}
+
+\section{Inlet Boundary Layer Validation}
+
+The vertical profiles of the normalized velocity and turbulent kinetic energy (TKE) were extracted at the inlet boundary to verify the implementation of the User-Defined Function (UDF) and ensure the stability of the atmospheric boundary layer (ABL).
+
+\begin{figure}[htbp]
+    \centering
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/u_epsilon.png}
+        \caption{Normalized velocity $u/u_H$}
+        \label{fig:inlet:velocity}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/tke_epsilon.png}
+        \caption{Normalized TKE $k/k_H$}
+        \label{fig:inlet:tke}
+    \end{subfigure}
+    \caption{}
+    \label{fig:inlet_profiles}
+\end{figure}
+
+
+\begin{figure}[htbp]
+    \centering
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/u_omega.png}
+        \caption{Normalized velocity $u/u_H$}
+        \label{fig:inlet:velocity}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/tke_omega.png}
+        \caption{Normalized TKE $k/k_H$}
+        \label{fig:inlet:tke}
+    \end{subfigure}
+    \caption{}
+    \label{fig:inlet_profiles}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/A_epsilon.png}
+        \caption{}
+        \label{fig:inlet:velocity}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/B_epsilon.png}
+        \caption{}
+        \label{fig:inlet:tke}
+    \end{subfigure}
+    \caption{}
+    \label{fig:inlet_profiles}
+\end{figure}
 
 
 
-\section{Mean Concentration Distribution of \texorpdfstring{$SF_6$}{SF6}}
+\begin{figure}[htbp]
+    \centering
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/A_omega.png}
+        \caption{}
+        \label{fig:inlet:velocity}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/B_epsilon.png}
+        \caption{}
+        \label{fig:inlet:tke}
+    \end{subfigure}
+    \caption{}
+    \label{fig:inlet_profiles}
+\end{figure}
 
-\textbf{Sample: } The concentration contours show that the pollutant is not distributed uniformly inside the canyon. Higher concentration levels are observed in weakly ventilated regions, especially near the wall affected by the main recirculation motion. In contrast, lower concentrations appear in regions where the airflow promotes pollutant removal from the canyon.
 
 
-\section{Concentration Profiles at Selected Locations}
-\textbf{Sample: } The vertical concentration profiles provide a more detailed view of pollutant distribution inside the canyon. The highest values are observed in the central region, where the effect of recirculation is strongest. As the height increases, the concentration generally decreases, indicating gradual mixing with the outer flow above the canyon.
 
 
-\section{Validation and Numerical Convergence}
-\textbf{Sample: } The solution was considered converged when the scaled residuals dropped below the prescribed threshold of $10^{-5}$. In addition, the monitored outlet values approached a stable level, indicating numerical consistency of the simulation. Where reference data are available, the predicted concentration trends show reasonable agreement with the benchmark results.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 % Boundary conditions:
